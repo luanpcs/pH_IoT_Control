@@ -4,7 +4,7 @@ MQTT_Client = mqtt.Client()
 MQTT_Broker = "broker.emqx.io"
 MQTT_Port = 1883
 MQTT_KeepAlive = 60
-MQTT_MessageDecode = 'utf-8'
+MQTT_MessageEncode = 'utf-8'
 
 MQTT_SubTopic = "TCC_IoTpHControl/webPub"
 MQTT_PubTopic = "TCC_IoTpHControl/raspPub"
@@ -23,7 +23,7 @@ def MQTT_OnConnect(client, userdata, flags, rc):
     MQTT_Pub("Raspberry is connected")
 
 def MQTT_OnMessage(client, userdata, msg):
-    receivedMessage = msg.payload.decode(MQTT_MessageDecode)
+    receivedMessage = msg.payload.decode(MQTT_MessageEncode)
     print("->", receivedMessage)
 
 def MQTT_Init():
