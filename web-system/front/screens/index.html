@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../styles/style.css">
+</head>
+
+<body>
+
+	<div class="header">Monitoramento e controle IoT de pH</div>
+
+	<div class="grid">
+
+		<div class="grid-block">
+			<div class="block-content ">
+				<div class="label-titles">pH atual</div>
+				<div class="label-ph-atual">7.0</div>
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Modo</div>
+				<button class="modo-buttons">Automático</button>
+				<button class="modo-buttons">Manual</button>
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Alertas</div>
+				<img class="img_alertas" id="alertas-popup-button" src="assets/img_alertas.png" />
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Registros</div>
+				<img class="img_registros" id="registros-popup-button" src="assets/img_logregistros.png" />
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Configurações</div>
+				<div class="label-configs">
+					Data: 12/10/2023
+					<br>
+					Local: Minas Gerais
+				</div>
+				<button class="configs-button">Alterar</button>
+			</div>
+		</div>
+
+		<div class="grid-block graph">
+			<canvas id="meuGrafico"></canvas>
+		</div>
+
+	</div>
+
+	<div id="registros-popup" class="registros-popup">
+		<div class="registros-popup-content" id="registros-popup-content">
+			<div class="registros-popup-header">
+				<div>Registros</div>
+				<div class="close" id="registros-popup-close">&times;</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="alertas-popup" class="alertas-popup">
+		<div class="alertas-popup-content" id="registros-popup-content">
+			<div class="alertas-popup-header">
+				<div>Alertas</div>
+				<div class="close" id="alertas-popup-close">&times;</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../scripts/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>
