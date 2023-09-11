@@ -3,10 +3,13 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="../styles/style.css">
+	<script src="../node_modules/mqtt/dist/mqtt.js	"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" type="text/javascript"></script>
+</head>
+
 </head>
 
 <body>
-
 	<div class="header">Monitoramento e controle IoT de pH</div>
 
 	<div class="grid">
@@ -76,7 +79,13 @@
 		</div>
 	</div>
 
-	<script src="../scripts/script.js"></script>
+	<script type="module" src="../scripts/index-script.js"></script>
+	<script src="../scripts/registros-script.js"></script>
+	<script type="module" src="../scripts/mqtt.js"></script>
+	<script src="../scripts/alertas-script.js"></script>
+	<script src="../scripts/graph-scripts.js"></script>
+	<script type="module" src="../scripts/requests.js"></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
