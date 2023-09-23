@@ -1,17 +1,16 @@
 import RPi.GPIO as GPIO
 import serial
 
-PinEnableSensor = 12
+GPIO.setwarnings(False)
+PinEnableSensor = 3
 
 GPIO.setmode(GPIO.BOARD)    
-GPIO.setup(EnableSensor_PIN, GPIO.OUT)
-
+GPIO.setup(PinEnableSensor, GPIO.OUT)
+SerialHandle = serial.Serial('/dev/ttyUSB0', baudrate=9600, timeout=1) #ttyAMA0 ttyACM0
 def readSensorData():
-    SerialHandle = serial.Serial('/dev/ttyS0', baudrate=9600, timeout=1)
     GPIO.output(PinEnableSensor, GPIO.HIGH)
-    sensorData = SerialHandle.read(10)
+    sensorData = SerialHandle.readline().decode('utf8').strip()
     GPIO.output(PinEnableSensor, GPIO.LOW)
-    SerialHandle.close()    
-    if sensorData:
-        return sensorData
+    #SerialHandle.close()    
+    return sensorData
 

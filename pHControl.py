@@ -1,4 +1,4 @@
-import paho.mqtt.client as mqtt
+import paho.mqtt.c,lient as mqtt
 import threading
 import time
 
@@ -9,9 +9,11 @@ def main():
     mqtt_thread = threading.Thread(target=mqtt_loop)
     mqtt_thread.start()
     time.sleep(2)
+    MQTT_Pub("Raspberry listening...")
     while 1:
-        print(readSensorData())
-        time.sleep(3)
+        time.sleep(1)
+        a = readSensorData()
+        MQTT_Pub(a)
 
 if __name__ == "__main__":
     main()
