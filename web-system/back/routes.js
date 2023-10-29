@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('./models.js').ModeloLogins;
 
-const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
+const { ModeloDevices, ModeloLogins, ModeloDataLogs, ModeloConfiguracoes } = require('./models')
 
 { // Devices
     router.post('/devices', async (req, res) => {
@@ -106,6 +106,33 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
     });
 }
 
+{ // Configurações   
+    // Adicionar nova configuração
+    router.post('/configuracoes', async (req, res) => {
+        console.log('Dados recebidos no routes:', req.body);
+        try {
+            const { hora, data, local } = req.body;
+            const configuracao = new ModeloConfiguracoes({ hora, data, local });
+            await configuracao.save();
+            res.status(200).json({ message: 'Configuração adicionada com sucesso!' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao adicionar configuração.' });
+        }
+    });
+
+    // Recuperar todas as configurações
+    router.get('/configuracoes', async (req, res) => {
+        try {
+            const configuracoes = await ModeloConfiguracoes.find();
+            res.status(200).json(configuracoes);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao buscar configurações.' });
+        }
+    });
+}
+
 /* router.get('/login', async (req, res) => {
     try {
         const logins = await ModeloLogins.find();
@@ -115,9 +142,5 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
         res.status(500).json({ message: 'Erro ao buscar dados.' });
     }
 }); */
-
-
-
-
 
 module.exports = router;

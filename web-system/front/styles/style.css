@@ -90,7 +90,7 @@ body {
 .configs-button {
     background: white;
     color: #2F3A75;
-    font-size: 3vh;
+    font-size: 4vh;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -116,6 +116,7 @@ body {
 
 
 .registros-popup,
+/* .configuracoes-popup, */
 .alertas-popup {
     position: fixed;
     top: 0;
@@ -130,7 +131,23 @@ body {
     transition: opacity 0.3s;
 }
 
+.configuracoes-popup
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
 .alertas-popup-content,
+/* .configuracoes-popup-content, */
 .registros-popup-content {
     margin-top: 10vh;
     margin-left: 50vh;
@@ -140,13 +157,59 @@ body {
     width: 50%;
     height: 75vh;
     position: relative;
+    font-size: 4vh;
+    color: #2F3B76;
+}
+
+.configuracoes-popup-content
+{
+    margin-top: 10vh;
+    margin-left: 50vh;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    height: 75vh;
+    position: relative;
+    font-size: 4vh;
+    color: #2F3B76;
+    transition: opacity 0.3s ease;
+}
+
+.configuracoes-popup-content label,
+.configuracoes-popup-content input {
+    margin-bottom: 10px;
+    display: block;
+    font-size: 3vh; /* Ajustei o tamanho da fonte para melhor se adequar */
+    width: 75%;
+    text-align: center; /* Alinhei o texto à esquerda */
 }
 
 .alertas-popup-header,
+/* .configuracoes-popup-header, */
 .registros-popup-header {
     background-color: #2F3B76;
     color: #fff;
     font-size: 4vh;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    text-align: center;
+}
+
+.configuracoes-popup-header {
+    background-color: #2F3B76;
+    color: #fff;
+    font-size: 4vh;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    text-align: center;
+}
+
+.configuracoes-popup-content button {
+    font-size: 3vh;
+    padding: 10px 20px;
+    background-color: #2F3B76;
+    color: #fff;
+    width: 100%;
+    max-width: 200px;
 }

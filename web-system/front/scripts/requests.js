@@ -39,7 +39,6 @@ export function getAllDevices() {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
-
 }
 
 export function login(user, password) {
@@ -55,7 +54,6 @@ export function login(user, password) {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
-
 }
 
 export function savePH() {
@@ -75,5 +73,50 @@ export function savePH() {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
+}
 
+export default function saveConfigurations(hora, data, local) {
+    const url = 'http://localhost:3000/configuracoes';
+
+    console.log('saveConfigurations');
+    console.log('Hora:', hora);
+    console.log('Data:', data);
+    console.log('Local:', local);
+
+    if (!data || !hora || !local)
+    {
+        console.log("Todos os campos devem ser preenchidos.");
+        return;
+    }
+
+    if( data == undefined || hora == undefined || local == undefined)
+    {
+        console.log("Todos os campos devem ser preenchidos.");
+        return;
+    }
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ hora, data, local }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        return data;
+    })
+    .catch(error => {
+        console.error(error);
+        throw error;
+    });
+}
+
+export function getConfigurations() {
+    const url = 'http://localhost:3000/configuracoes';
+
+    return fetch(url)
+        .then(response => response.json())
+        .catch(error => console.error(error));
 }
