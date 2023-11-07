@@ -1,5 +1,7 @@
 import paho.mqtt.client as mqtt
 
+from pHControl import onMessage
+
 MQTT_Client = mqtt.Client()
 MQTT_Broker = "broker.emqx.io"
 MQTT_Port = 1883
@@ -25,6 +27,7 @@ def MQTT_OnConnect(client, userdata, flags, rc):
 def MQTT_OnMessage(client, userdata, msg):
     receivedMessage = msg.payload.decode(MQTT_MessageEncode)
     print("->", receivedMessage)
+    onMessage(receivedMessage)
 
 def MQTT_Init():
     MQTT_Client.on_connect = MQTT_OnConnect
