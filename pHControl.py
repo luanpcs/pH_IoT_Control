@@ -5,7 +5,9 @@ import threading
 import time
 
 from pHMeassureModule import readSensorData
-from vars import modoAtual, valorManualAlvo, valorAutMin, valorAutMax
+from globalVars import globalVars
+
+gVars = globalVars()
 
 def main():
     from MQTT_Module import mqtt_loop, MQTT_Pub
@@ -23,15 +25,16 @@ def onMessage(msg):
     
     if msgType == 'modo':
         if value == 'a':
-            modoAtual = value
+            gVars.setModoAtual(value)
             
         elif value == 'm':
-            modoAtual = value
+            gVars.setModoAtual(value)
             
         else:
             print('Modo nao reconhecido')
             
-        print("Modo atual:", modoAtual) 
+        print("Modo atual:", gVars.getModoAtual())
+        
             
     elif msgType == "aValue":
         if modoAtual == 'a':
