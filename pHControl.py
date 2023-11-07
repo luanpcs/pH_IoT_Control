@@ -5,10 +5,7 @@ import threading
 import time
 
 from pHMeassureModule import readSensorData
-modoAtual = "m"
-valorManualAlvo = 0
-valorAutMin = 0
-valorAutMax = 0
+from vars import modoAtual, valorManualAlvo, valorAutMin, valorAutMax
 
 def main():
     from MQTT_Module import mqtt_loop, MQTT_Pub
@@ -18,12 +15,8 @@ def main():
     MQTT_Pub("Raspberry listening...")
     
 def onMessage(msg):
-    from MQTT_Module import MQTT_Pub
     import json
-    global modoAtual
-    global valorManualAlvo
-    global valorAutMin
-    global valorAutMax
+    from MQTT_Module import MQTT_Pub
     
     msgType = json.loads(msg)['msgType']
     value = json.loads(msg)['value']
@@ -40,23 +33,25 @@ def onMessage(msg):
             
         print("Modo atual:", modoAtual) 
             
-    elif msgType == 'mValue':
-        valorManualAlvo = value
-        print("Valor alvo [MAN]:", valorManualAlvo)
-    
     elif msgType == "aValue":
-        valorAutMin = value[0]
-        valorAutMax = value[1]
-        
-        print("Valores alvos [AUT]:", valorAutMin, "e", valorAutMax)
+        if modoAtual == 'a':
+            valorAutMin = value[0]
+            valorAutMax = value[1]
+
+            controlAut(valorAutMin, valorAutMax)
+
+            print("Valores alvos [AUT]:", valorAutMin, "e", valorAutMax)
+
+    elif msgType == 'mValue':
+        if modoAtual == 'm':
+            valorManualAlvo = value
+
+            print("Valor alvo [MAN]:", valorManualAlvo)
         
     elif msgType == "reqValue":
         payload = {"msgType": "phValue", "value": int(readSensorData())}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")
         
-            
-     
-
 if __name__ == "__main__":
     main()
