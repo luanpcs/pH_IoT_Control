@@ -22,3 +22,27 @@ class globalVars:
     @classmethod
     def getModoAtual(cls):
         return cls.modoAtual
+
+    @classmethod
+    def setValorManualAlvo(cls, novoValor):
+        cls.valorManualAlvo = novoValor
+    
+    @classmethod
+    def getValorManualAlvo(cls):
+        return cls.valorManualAlvo
+
+    @classmethod
+    def setValorAutMin(cls, novoValor):
+        cls.valorAutMin = novoValor
+    
+    @classmethod
+    def getValorAutMin(cls):
+        return cls.valorAutMin
+
+    @classmethod
+    def setValorAutMax(cls, novoValor):
+        cls.valorAutMax = novoValor
+    
+    @classmethod
+    def getValorAutMax(cls):
+        return cls.valorAutMax

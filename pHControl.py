@@ -38,12 +38,12 @@ def onMessage(msg):
             
     elif msgType == "aValue":
         if modoAtual == 'a':
-            valorAutMin = value[0]
-            valorAutMax = value[1]
+            gVars.setValorAutMin(value[0])
+            gVars.setValorAutMax(value[1])
 
-            controlAut(valorAutMin, valorAutMax)
+            # controlAut(valorAutMin, valorAutMax)
 
-            print("Valores alvos [AUT]:", valorAutMin, "e", valorAutMax)
+            print("Valores alvos [AUT]:", gVars.getValorAutMin(), "e", gVars.setValorAutMax())
 
     elif msgType == 'mValue':
         if modoAtual == 'm':
