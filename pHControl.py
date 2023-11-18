@@ -16,7 +16,7 @@ def main():
     mqtt_thread.start()
     time.sleep(2)
     MQTT_Pub("Raspberry listening...")
-    while(1):
+    while 1:
         payload = {"msgType": "phValue", "value": float(readSensorData())}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")
@@ -51,7 +51,7 @@ def onMessage(msg):
         print("VAut2", gVars.getValorAutMax())
 
     elif msgType == "reqValue":
-        payload = {"msgType": "phValue", "value": int(readSensorData())}
+        payload = {"msgType": "phValue", "value": float(readSensorData())}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")
         
