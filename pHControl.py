@@ -3,6 +3,7 @@
 import paho.mqtt.client as mqtt
 import threading
 import time
+import json
 
 from pHMeassureModule import readSensorData
 from globalVars import globalVars
@@ -15,9 +16,13 @@ def main():
     mqtt_thread.start()
     time.sleep(2)
     MQTT_Pub("Raspberry listening...")
+    while(1):
+        payload = {"msgType": "phValue", "value": float(readSensorData())}
+        MQTT_Pub(json.dumps(payload))
+        print("pH enviado ao sistema web")
+        time.sleep(2)
     
 def onMessage(msg):
-    import json
     from MQTT_Module import MQTT_Pub
     
     msgType = json.loads(msg)['msgType']

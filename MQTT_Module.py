@@ -27,7 +27,11 @@ def MQTT_OnConnect(client, userdata, flags, rc):
 def MQTT_OnMessage(client, userdata, msg):
     receivedMessage = msg.payload.decode(MQTT_MessageEncode)
     print("->", receivedMessage)
-    onMessage(receivedMessage)
+    try:
+        onMessage(receivedMessage)
+    except:
+        print('On message error')
+    
 
 def MQTT_Init():
     MQTT_Client.on_connect = MQTT_OnConnect
