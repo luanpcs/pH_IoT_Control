@@ -12,6 +12,8 @@ global pumpUp
 global pumpDown
 
 def pumpsInit():
+    global pumpUp
+    global pumpDown
     gpio.setup(pumpUpPin, gpio.OUT)
     gpio.setup(pumpDownPin, gpio.OUT)
 
@@ -20,6 +22,8 @@ def pumpsInit():
 
     pumpUp.start(0)
     pumpDown.start(0)
+    
+    return pumpUp, pumpDown
 
 if __name__ == "__main__":
 
