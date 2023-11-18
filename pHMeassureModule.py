@@ -3,7 +3,7 @@ import serial
 import time
 
 GPIO.setwarnings(False)
-PinEnableSensor = 2
+PinEnableSensor = 3
 
 GPIO.setmode(GPIO.BOARD)    
 GPIO.setup(PinEnableSensor, GPIO.OUT)
