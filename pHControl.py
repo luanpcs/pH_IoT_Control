@@ -26,36 +26,30 @@ def onMessage(msg):
     from MQTT_Module import MQTT_Pub
     
     msgType = json.loads(msg)['msgType']
-    value = json.loads(msg)['value']
-    
+
+    print(msg)
+
     if msgType == 'modo':
-        if value == 'a':
-            gVars.setModoAtual(value)
-            
-        elif value == 'm':
-            gVars.setModoAtual(value)
+        modo = json.loads(msg)['modo']
+        value = json.loads(msg)['value']
+
+        if modo == 'a':
+            gVars.setModoAtual(modo)
+            gVars.setValorAutMin(value[0])
+            gVars.setValorAutMax(value[1])
+
+        elif modo == 'm':
+            gVars.setModoAtual(modo)
+            gVars.setValorManualAlvo(value)
             
         else:
             print('Modo nao reconhecido')
             
         print("Modo atual:", gVars.getModoAtual())
-        
-            
-    elif msgType == "aValue":
-        if modoAtual == 'a':
-            gVars.setValorAutMin(value[0])
-            gVars.setValorAutMax(value[1])
+        print("VManual:", gVars.getValorManualAlvo())
+        print("VAut1", gVars.getValorAutMin())
+        print("VAut2", gVars.getValorAutMax())
 
-            # controlAut(valorAutMin, valorAutMax)
-
-            print("Valores alvos [AUT]:", gVars.getValorAutMin(), "e", gVars.setValorAutMax())
-
-    elif msgType == 'mValue':
-        if modoAtual == 'm':
-            valorManualAlvo = value
-
-            print("Valor alvo [MAN]:", valorManualAlvo)
-        
     elif msgType == "reqValue":
         payload = {"msgType": "phValue", "value": int(readSensorData())}
         MQTT_Pub(json.dumps(payload))
