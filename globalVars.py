@@ -1,13 +1,3 @@
-'''modoAtual = "m"
-valorManualAlvo = 0
-valorAutMin = 0
-valorAutMax = 0
-
-def setModoAtual(novoModo):
-    modoAtual = novoModo
-    
-def getModoAtual():
-    return modoAtual'''
 
 class globalVars:
     modoAtual = None
