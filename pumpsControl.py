@@ -1,6 +1,8 @@
 import RPi.GPIO as gpio
 import time
 
+from globalVars import globalVars
+
 pumpUpPin = 32
 pumpDownPin = 33
 pumpPWMFreq = 100
@@ -9,6 +11,8 @@ ON = 100
 
 gpio.setwarnings(False)
 gpio.setmode(gpio.BOARD)
+
+gVars = globalVars()
 
 global pumpUp
 global pumpDown
@@ -34,19 +38,25 @@ def updatePump(pump, newState):
 def pumpsIdle():
     updatePump(pumpUp, OFF)
     updatePump(pumpDown, OFF)
-
-
-if __name__ == "__main__":
-    pumpsInit()
-
-    while 0:
-        print("0")
-        updatePump(pumpUp, OFF)
-        updatePump(pumpDown, ON)
-        time.sleep(1)
-
-        print("100")
-        updatePump(pumpUp, ON)
-        updatePump(pumpDown, OFF)
-        time.sleep(1)
     
+def pumpUpON():
+    updatePump(pumpUp, ON)
+    
+def pumpUpOFF():
+    updatePump(pumpUp, OFF)
+    
+def pumpDownON():
+    updatePump(pumpDown, ON)
+    
+def pumpDownOFF():
+    updatePump(pumpDown, OFF)
+
+def pumpUpTrigger():
+    pumpUpON()
+    time.sleep(gVars.getValorPumpsIntervalTrigger())
+    pumpUpOFF()
+    
+def pumpDownTrigger():
+    pumpDownON()
+    time.sleep(gVars.getValorPumpsIntervalTrigger())
+    pumpDownOFF()

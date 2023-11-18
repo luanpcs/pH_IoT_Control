@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import serial
+import time
 
 GPIO.setwarnings(False)
 PinEnableSensor = 3
@@ -11,6 +12,6 @@ def readSensorData():
     GPIO.output(PinEnableSensor, GPIO.HIGH)
     sensorData = SerialHandle.readline().decode('utf8').strip()
     GPIO.output(PinEnableSensor, GPIO.LOW)
-    #SerialHandle.close()    
+    # SerialHandle.close()    
     return sensorData
 

@@ -11,17 +11,18 @@ gVars = globalVars()
 def main():
     from MQTT_Module import mqtt_loop, MQTT_Pub
     from autControl import aut
+    from pumpsControl import pumpsInit
+    
     mqtt_thread = threading.Thread(target=mqtt_loop)
     mqtt_thread.start()
     time.sleep(2)
     MQTT_Pub("Raspberry listening...")
+    pumpsInit()
     while 1:
-        '''
-        payload = {"msgType": "phValue", "value": float(readSensorData())}
+        '''payload = {"msgType": "phValue", "value": float(readSensorData())}
         MQTT_Pub(json.dumps(payload))
-        print("pH enviado ao sistema web")
-        '''
-        time.sleep(1)
+        print("pH enviado ao sistema web")'''
+        time.sleep(1.5)
         aut()
     
 def onMessage(msg):

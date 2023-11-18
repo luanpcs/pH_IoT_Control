@@ -8,6 +8,7 @@ class globalVars:
     startTime = 0
     finalTime = 0
     asyncTrigger = False
+    pumpsIntervalTrigger = 2
     
     @classmethod
     def setModoAtual(cls, novoModo):
@@ -64,6 +65,10 @@ class globalVars:
     @classmethod
     def getValorAsyncTrigger(cls):
         return cls.asyncTrigger
+    
+    @classmethod
+    def getValorPumpsIntervalTrigger(cls):
+        return cls.pumpsIntervalTrigger
     
     @classmethod
     def millis(cls):
