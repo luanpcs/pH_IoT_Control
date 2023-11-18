@@ -1,9 +1,13 @@
+import time
 
 class globalVars:
     modoAtual = None
     valorManualAlvo = 0
     valorAutMin = 0
     valorAutMax = 0
+    startTime = 0
+    finalTime = 0
+    asyncTrigger = False
     
     @classmethod
     def setModoAtual(cls, novoModo):
@@ -36,3 +40,31 @@ class globalVars:
     @classmethod
     def getValorAutMax(cls):
         return cls.valorAutMax
+    
+    @classmethod
+    def setValorStartTime(cls, novoValor):
+        cls.startTime = novoValor
+    
+    @classmethod
+    def getValorStartTime(cls):
+        return cls.startTime
+    
+    @classmethod
+    def setValorFinalTime(cls, novoValor):
+        cls.finalTime = novoValor
+    
+    @classmethod
+    def getValorFinalTime(cls):
+        return cls.finalTime
+    
+    @classmethod
+    def setValorAsyncTrigger(cls, novoValor):
+        cls.asyncTrigger = novoValor
+    
+    @classmethod
+    def getValorAsyncTrigger(cls):
+        return cls.asyncTrigger
+    
+    @classmethod
+    def millis(cls):
+        return int(round(time.time() * 1000))

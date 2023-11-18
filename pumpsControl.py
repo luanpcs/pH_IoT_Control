@@ -39,7 +39,7 @@ def pumpsIdle():
 if __name__ == "__main__":
     pumpsInit()
 
-    while True:
+    while 0:
         print("0")
         updatePump(pumpUp, OFF)
         updatePump(pumpDown, ON)

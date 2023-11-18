@@ -10,15 +10,19 @@ gVars = globalVars()
 
 def main():
     from MQTT_Module import mqtt_loop, MQTT_Pub
+    from autControl import aut
     mqtt_thread = threading.Thread(target=mqtt_loop)
     mqtt_thread.start()
     time.sleep(2)
     MQTT_Pub("Raspberry listening...")
     while 1:
+        '''
         payload = {"msgType": "phValue", "value": float(readSensorData())}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")
-        time.sleep(2)
+        '''
+        time.sleep(1)
+        aut()
     
 def onMessage(msg):
     from MQTT_Module import MQTT_Pub
@@ -32,12 +36,9 @@ def onMessage(msg):
         value = json.loads(msg)['value']
 
         if modo == 'a':
-            from autControl import aut
-
             gVars.setModoAtual(modo)
             gVars.setValorAutMin(value[0])
             gVars.setValorAutMax(value[1])
-            aut()
 
         elif modo == 'm':
             gVars.setModoAtual(modo)
