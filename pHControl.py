@@ -32,9 +32,12 @@ def onMessage(msg):
         value = json.loads(msg)['value']
 
         if modo == 'a':
+            from autControl import aut
+
             gVars.setModoAtual(modo)
             gVars.setValorAutMin(value[0])
             gVars.setValorAutMax(value[1])
+            aut()
 
         elif modo == 'm':
             gVars.setModoAtual(modo)
