@@ -4,6 +4,8 @@ import time
 pumpUpPin = 32
 pumpDownPin = 33
 pumpPWMFreq = 100
+OFF = 0
+ON = 100
 
 gpio.setwarnings(False)
 gpio.setmode(gpio.BOARD)
@@ -14,29 +16,30 @@ global pumpDown
 def pumpsInit():
     global pumpUp
     global pumpDown
+
     gpio.setup(pumpUpPin, gpio.OUT)
     gpio.setup(pumpDownPin, gpio.OUT)
 
     pumpUp = gpio.PWM(pumpUpPin, pumpPWMFreq)
     pumpDown = gpio.PWM(pumpDownPin, pumpPWMFreq)
 
-    pumpUp.start(0)
-    pumpDown.start(0)
+    pumpUp.start(OFF)
+    pumpDown.start(OFF)
     
-    return pumpUp, pumpDown
+def updatePump(pump, newState):
+    pump.ChangeDutyCycle(newState)
 
 if __name__ == "__main__":
-
     pumpsInit()
 
     while True:
-        pumpUp.ChangeDutyCycle(0)
-        pumpDown.ChangeDutyCycle(100)
         print("0")
-
+        updatePump(pumpUp, OFF)
+        updatePump(pumpDown, ON)
         time.sleep(1)
-        pumpUp.ChangeDutyCycle(100)
-        pumpDown.ChangeDutyCycle(0)
+
         print("100")
+        updatePump(pumpUp, ON)
+        updatePump(pumpDown, OFF)
         time.sleep(1)
     
