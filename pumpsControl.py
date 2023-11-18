@@ -23,9 +23,6 @@ def pumpsInit():
     pumpUp = gpio.PWM(pumpUpPin, pumpPWMFreq)
     pumpDown = gpio.PWM(pumpDownPin, pumpPWMFreq)
 
-    pumpUp.start(OFF)
-    pumpDown.start(OFF)
-
     pumpsIdle()
     
 def updatePump(pump, newState):
