@@ -5,28 +5,24 @@ import time
 
 gVars = globalVars()
 
-def aut():
-    if(gVars.getModoAtual() == "a"):
+def manual():
+    if(gVars.getModoAtual() == "m"):
         if(gVars.getValorAsyncTrigger()):
             if(gVars.millis() >= gVars.getValorFinalTime()):
-                strpH = readSensorData()
-                currentpHValue = 0
-                if(strpH != ''):
-                    currentpHValue = float(strpH)
-                print(gVars.getValorAutMin(), currentpHValue, gVars.getValorAutMax())
+                currentDir = gVars.getValorManualDir()
+                print(currentDir)
                 
-                if(gVars.getValorAutMin() <= currentpHValue <=  gVars.getValorAutMax()):
-                    print("pH aut ok")
-                    
-                elif(gVars.getValorAutMin() > currentpHValue):
-                    print("PumpUp trigger")
-                    pumpUpTrigger()
-                    gVars.setValorAsyncTrigger(False)
-                    
-                elif(gVars.getValorAutMax() < currentpHValue):
+                if(currentDir == 0):
                     print("PumpDown trigger")
                     pumpDownTrigger()
                     gVars.setValorAsyncTrigger(False)
+                    gVars.setValorManualDir(-1)
+                    
+                elif(currentDir == 1):
+                    print("PumpUp trigger")
+                    pumpUpTrigger()
+                    gVars.setValorAsyncTrigger(False)
+                    gVars.setValorManualDir(-1)
             
         else:
             gVars.setValorStartTime(gVars.millis())

@@ -2,7 +2,7 @@ import time
 
 class globalVars:
     modoAtual = None
-    manualDir = None
+    manualDir = -1
     valorAutMin = 0
     valorAutMax = 0
     startTime = 0

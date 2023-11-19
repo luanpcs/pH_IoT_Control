@@ -11,6 +11,7 @@ gVars = globalVars()
 def main():
     from MQTT_Module import mqtt_loop, MQTT_Pub
     from autControl import aut
+    from manControl import manual
     from pumpsControl import pumpsInit
     
     mqtt_thread = threading.Thread(target=mqtt_loop)
@@ -22,8 +23,9 @@ def main():
         '''payload = {"msgType": "phValue", "value": float(readSensorData())}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")'''
-        time.sleep(1.5)
         aut()
+        manual()
+        time.sleep(1.5)
     
 def onMessage(msg):
     from MQTT_Module import MQTT_Pub
