@@ -2,7 +2,7 @@ import time
 
 class globalVars:
     modoAtual = None
-    valorManualAlvo = 0
+    manualDir = None
     valorAutMin = 0
     valorAutMax = 0
     startTime = 0
@@ -19,12 +19,12 @@ class globalVars:
         return cls.modoAtual
 
     @classmethod
-    def setValorManualAlvo(cls, novoValor):
-        cls.valorManualAlvo = novoValor
+    def setValorManualDir(cls, novoValor):
+        cls.manualDir = novoValor
     
     @classmethod
-    def getValorManualAlvo(cls):
-        return cls.valorManualAlvo
+    def getValorManualDir(cls):
+        return cls.manualDir
 
     @classmethod
     def setValorAutMin(cls, novoValor):

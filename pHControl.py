@@ -43,7 +43,7 @@ def onMessage(msg):
 
         elif modo == 'm':
             gVars.setModoAtual(modo)
-            gVars.setValorManualAlvo(value)
+            gVars.setValorManualDir(value)
             
         else:
             print('Modo nao reconhecido')
