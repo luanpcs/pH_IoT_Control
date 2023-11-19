@@ -38,6 +38,7 @@ def updatePump(pump, newState):
 def pumpsIdle():
     updatePump(pumpUp, OFF)
     updatePump(pumpDown, OFF)
+    time.sleep(gVars.getValorPumpsIntervalTrigger())
     
 def pumpUpON():
     updatePump(pumpUp, ON)

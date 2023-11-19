@@ -12,6 +12,9 @@ def readSensorData():
     GPIO.output(PinEnableSensor, GPIO.HIGH)
     sensorData = SerialHandle.readline().decode('utf8').strip()
     GPIO.output(PinEnableSensor, GPIO.LOW)
-    # SerialHandle.close()    
-    return sensorData
+    # SerialHandle.close()
+    if sensorData != '':
+        return sensorData
+    else:
+        return -1
 

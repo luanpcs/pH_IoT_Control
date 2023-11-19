@@ -10,7 +10,6 @@ def manual():
         if(gVars.getValorAsyncTrigger()):
             if(gVars.millis() >= gVars.getValorFinalTime()):
                 currentDir = gVars.getValorManualDir()
-                print(currentDir)
                 
                 if(currentDir == 0):
                     print("PumpDown trigger")
@@ -26,7 +25,7 @@ def manual():
             
         else:
             gVars.setValorStartTime(gVars.millis())
-            gVars.setValorFinalTime(gVars.getValorStartTime() + 1000)
+            gVars.setValorFinalTime(gVars.getValorStartTime() + (gVars.getValorPumpsIntervalTrigger() * 1000))
             gVars.setValorAsyncTrigger(True)
             pumpUpOFF()
             # print(gVars.getValorStartTime(), "E", gVars.getValorFinalTime())

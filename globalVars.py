@@ -7,8 +7,17 @@ class globalVars:
     valorAutMax = 0
     startTime = 0
     finalTime = 0
-    asyncTrigger = False
+    asyncTrigger = True
     pumpsIntervalTrigger = 2
+    serialBusy = False
+    
+    @classmethod
+    def setSerialBusy(cls, newState):
+        cls.serialBusy = newState
+    
+    @classmethod
+    def getSerialBusy(cls):
+        return cls.serialBusy
     
     @classmethod
     def setModoAtual(cls, novoModo):
