@@ -118,7 +118,8 @@ body {
 
 .registros-popup,
 .alertas-popup,
-.aut-popup {
+.aut-popup,
+.man-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -155,9 +156,21 @@ body {
     position: absolute;
 }
 
+.man-popup-content {
+    margin-top: 10vh;
+    margin-left: 35%;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    width: 55vh;
+    height: 45vh;
+    position: absolute;
+}
+
 .alertas-popup-header,
 .registros-popup-header,
-.aut-popup-header {
+.aut-popup-header,
+.man-popup-header{
     background-color: #2F3B76;
     color: #fff;
     font-size: 4vh;
@@ -206,6 +219,13 @@ body {
     transition: left 0.8s ease;
     border-top: 20px solid black;
     margin-bottom: -5vh;
+    transform: rotate(180deg);
+}
+
+#setaAtualMan {
+    transition: left 0.8s ease;
+    border-top: 20px solid black;
+    margin-top: 0.8vh;
     transform: rotate(180deg);
 }
 
@@ -264,7 +284,7 @@ body {
     width: 15vh;
     margin-top: 2vh;
     color:black;
-    font-size: 35px;
+    font-size: 5vh;
     color: #2F3A75;
     text-align: center;
 }
@@ -289,11 +309,42 @@ body {
     color: white;
     font-size: 3vh;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 1vh;
     border: none;
     width: 30%;
 }
 
 .btnConfigAutFaixa:hover {
     background: #3f853e;
+}
+
+#btnConfigManUp{
+    background: #52AA50;
+    margin-top: 5vh;
+}
+
+#btnConfigManDown{
+    background: #E22B2B;
+    margin-top: 4vh;
+}
+
+#btnConfigManUp:hover{
+    background: #428a41;
+    margin-top: 5vh;
+}
+
+#btnConfigManDown:hover{
+    background: #bb2424;
+    margin-top: 4vh;
+}
+
+#btnConfigManUp,
+#btnConfigManDown
+{
+    color:white;
+    border: none;
+    width: 30vh;
+    height: 5.5vh;
+    border-radius: 1vh;
+    font-size: 3.5vh;
 }

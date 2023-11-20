@@ -1,5 +1,4 @@
 import { mqttSend } from './mqtt.js';
-var int
 
 function showAutPopup() {
     const popup = document.getElementById("aut-popup");
@@ -63,7 +62,6 @@ function configurarFaixa() {
         document.getElementById('setaMin').style.left = (min.toFixed(1) / 14) * 100 + '%';
         document.getElementById('setaMax').style.left = (max.toFixed(1) / 14) * 100 + '%';
     }
-
 
     const payload = {msgType: 'modo', modo: "a", value: [parseFloat(min).toFixed(1), parseFloat(max).toFixed(1)]};
     mqttSend(JSON.stringify(payload))

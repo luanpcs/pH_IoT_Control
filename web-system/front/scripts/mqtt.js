@@ -5,14 +5,6 @@ client.subscribe(subTopic);
 
 export function mqttInit() {
     mqttSetCallBacks()
-    mqttScreenScan()
-}
-
-function mqttScreenScan() {
-    document.getElementById('mqttBtn-Man').addEventListener('click', function () {
-        const payload = {msgType: 'modo', modo: "m", value: 0};
-        mqttSend(JSON.stringify(payload))
-    });
 }
 
 export function mqttSend(messageToSend) {
