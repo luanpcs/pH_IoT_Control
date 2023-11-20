@@ -15,10 +15,8 @@ def aut():
                 if gVars.getSerialBusy() == False:
                     gVars.setSerialBusy(True)
                     time.sleep(2)
-                    strpH = readSensorData()
-                    currentpHValue = 0
-                    if(strpH != ''):
-                        currentpHValue = float(strpH)
+                    currentpHValue = readSensorData()
+                    
                     print(gVars.getValorAutMin(), currentpHValue, gVars.getValorAutMax())
                     
                     if(gVars.getValorAutMin() <= currentpHValue <=  gVars.getValorAutMax()):

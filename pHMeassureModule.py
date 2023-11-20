@@ -14,7 +14,11 @@ def readSensorData():
     GPIO.output(PinEnableSensor, GPIO.LOW)
     # SerialHandle.close()
     if sensorData != '':
-        return sensorData
+        currrentPH = float(sensorData)
+        if(0.0 >= currrentPH or currrentPH >= 14.0):
+            return 0.0
+        else:
+            return float(sensorData)
     else:
-        return -1
+        return 0.0
 

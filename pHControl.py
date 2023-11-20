@@ -35,7 +35,7 @@ def sendpHValue():
             
         if gVars.getSerialBusy() == False:
             gVars.setSerialBusy(True)
-            payload = {"msgType": "phValue", "value": float(readSensorData())}
+            payload = {"msgType": "phValue", "value": readSensorData()}
             MQTT_Pub(json.dumps(payload))
             gVars.setSerialBusy(False)
 
@@ -69,7 +69,7 @@ def onMessage(msg):
         print("VAut2", gVars.getValorAutMax())'''
 
     elif msgType == "reqValue":
-        payload = {"msgType": "phValue", "value": float(readSensorData())}
+        payload = {"msgType": "phValue", "value": readSensorData()}
         MQTT_Pub(json.dumps(payload))
         print("pH enviado ao sistema web")
         
