@@ -40,13 +40,86 @@ function sendManUp()
 {
     const payload = {msgType: 'modo', modo: "m", value: 1};
     mqttSend(JSON.stringify(payload))
+    contagemUp()
 }
 
 function sendManDown()
 {
     const payload = {msgType: 'modo', modo: "m", value: 0};
     mqttSend(JSON.stringify(payload))
+    contagemDown()
 }
+
+function contagemUp() {
+    var btn = document.getElementById('btnConfigManUp');
+    var btn2 = document.getElementById('btnConfigManDown');
+
+    var bar = document.createElement('div');
+    bar.className = 'barUp';
+
+    var textLayer = document.createElement('div');
+    textLayer.className = 'textBarra';
+    textLayer.innerHTML = 'Aumentar pH'; 
+
+    btn.textContent = ''
+    btn.appendChild(bar);
+    btn.appendChild(textLayer);
+
+    btn.disabled = true;
+    btn2.disabled = true;
+
+    var segundos = 5;
+    var intervalo = setInterval(function () {
+        var progresso = ((5 - segundos) / 5) * 100;
+        bar.style.width = progresso + '%';
+        
+        if (segundos < 0) {
+            clearInterval(intervalo);
+            btn.removeChild(bar);
+            btn.removeChild(textLayer);
+            btn.textContent = 'Aumentar pH'
+            btn.disabled = false; 
+            btn2.disabled = false;
+        }
+        segundos--;
+    }, 1000);
+}
+
+function contagemDown() {
+    var btn = document.getElementById('btnConfigManDown');
+    var btn2 = document.getElementById('btnConfigManUp');
+
+    var bar = document.createElement('div');
+    bar.className = 'barDown';
+
+    var textLayer = document.createElement('div');
+    textLayer.className = 'textBarra';
+    textLayer.innerHTML = 'Diminuir pH'; 
+
+    btn.textContent = ''
+    btn.appendChild(bar);
+    btn.appendChild(textLayer);
+
+    btn.disabled = true;
+    btn2.disabled = true;
+
+    var segundos = 5;
+    var intervalo = setInterval(function () {
+        var progresso = ((5 - segundos) / 5) * 100;
+        bar.style.width = progresso + '%';
+        
+        if (segundos < 0) {
+            clearInterval(intervalo);
+            btn.removeChild(bar);
+            btn.removeChild(textLayer);
+            btn.textContent = 'Diminuir pH'
+            btn.disabled = false; 
+            btn2.disabled = false;
+        }
+        segundos--;
+    }, 1000);
+}
+
 
 document.getElementById("man-popup-close").addEventListener("click", hideManPopup);
 document.getElementById("Btn-Man").addEventListener("click", showManPopup);
