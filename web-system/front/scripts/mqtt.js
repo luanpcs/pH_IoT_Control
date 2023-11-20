@@ -9,18 +9,13 @@ export function mqttInit() {
 }
 
 function mqttScreenScan() {
-    document.getElementById('mqttBtn-Aut').addEventListener('click', function () {
-        const payload = {msgType: 'modo',value: 'a'};
-        mqttSend(JSON.stringify(payload))
-    });
-
     document.getElementById('mqttBtn-Man').addEventListener('click', function () {
-        const payload = {msgType: 'modo', value: 'm'};
+        const payload = {msgType: 'modo', modo: "m", value: 0};
         mqttSend(JSON.stringify(payload))
     });
 }
 
-function mqttSend(messageToSend) {
+export function mqttSend(messageToSend) {
     console.log(`<- ${messageToSend}`);
     client.publish(pubTopic, messageToSend)
 }
@@ -34,7 +29,7 @@ function mqttRec(payload) {
         case 'phValue':
             {
                 const valor = payloadJSON.value.toString()
-                document.getElementById('mqttData').textContent = valor;
+                document.getElementById('mqttData').textContent = parseFloat(valor).toFixed(1);
             }
             break;
 

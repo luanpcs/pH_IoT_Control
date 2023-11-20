@@ -51,7 +51,7 @@ body {
 .modo-buttons {
     background: white;
     color: #2F3A75;
-    font-size: 5vh;
+    font-size: 4.5vh;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -60,6 +60,7 @@ body {
     margin-left: 1vh;
     margin-right: 1vh;
     margin-bottom: 2vh;
+    font-weight: 500;
 }
 
 .modo-buttons:hover,
@@ -116,7 +117,8 @@ body {
 
 
 .registros-popup,
-.alertas-popup {
+.alertas-popup,
+.aut-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -142,11 +144,156 @@ body {
     position: relative;
 }
 
+.aut-popup-content {
+    margin-top: 10vh;
+    margin-left: 35%;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    width: 55vh;
+    height: 55vh;
+    position: absolute;
+}
+
 .alertas-popup-header,
-.registros-popup-header {
+.registros-popup-header,
+.aut-popup-header {
     background-color: #2F3B76;
     color: #fff;
     font-size: 4vh;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+}
+
+#faixa {
+    margin-top: 7vh;
+    position: relative;
+    height: 4vh;
+    width: 100%;
+    background: linear-gradient(to left,
+            navy 0%, royalblue 14%, lightgreen 28%, darkgreen 42%,
+            limegreen 56%, yellow 70%, darkorange 85%, firebrick 100%);
+}
+
+.seta {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transform-origin: bottom center;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seta::before {
+    content: "";
+    position: absolute;
+    width: 0.4vh;
+    height: 4vh;
+    background-color: black;
+}
+
+#setaMin,
+#setaMax {
+    transition: left 0.8s ease;
+    margin-top: -20px;
+}
+
+#setaAtual {
+    transition: left 0.8s ease;
+    border-top: 20px solid black;
+    margin-bottom: -5vh;
+    transform: rotate(180deg);
+}
+
+#setaMin {
+    border-top: 20px solid green;
+}
+
+#setaMax {
+    border-top: 20px solid red;
+}
+
+.texto1,
+.texto2, 
+.texto3{
+    position: absolute;
+    font-size: 2.6vh;
+    top: -6.5vh;
+}
+
+.texto1{
+    color: green;
+}
+
+.texto2{
+    color: red;
+}
+
+.texto3{
+    top: -6vh;
+    color: black;
+    transform: rotate(-180deg);
+}
+
+#marcacaoInicio,
+#marcacaoFim {
+    position: absolute;
+    color: white;
+    font-size: 3vh;
+}
+
+#marcacaoInicio {
+    left: 3px;
+}
+
+#marcacaoFim {
+    right: 3px;
+}
+
+.inputAutMin,
+.inputAutMax
+{
+    background-color: #eeeeee;
+    border:none;
+    border-radius: 10px;
+    height: 7vh;
+    width: 15vh;
+    margin-top: 2vh;
+    color:black;
+    font-size: 35px;
+    color: #2F3A75;
+    text-align: center;
+}
+
+.inputAutMin
+{
+    margin-left: 0.8vh;
+    margin-top: 30px;
+}
+
+#labelAutInput
+{
+    color: #2F3A75;
+    font-weight: 500;
+    font-size: 3.3vh;
+}
+
+#btnConfigAutFaixa
+{
+    margin-top: 9vh;
+    background: #52AA50;
+    color: white;
+    font-size: 3vh;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    width: 30%;
+}
+
+.btnConfigAutFaixa:hover {
+    background: #3f853e;
 }
