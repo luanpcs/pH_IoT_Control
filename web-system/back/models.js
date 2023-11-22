@@ -19,14 +19,15 @@ const ModeloLogin = new mongoose.Schema
 const ModeloDevice = new mongoose.Schema
     (
         {
-            id: { type: String },
+            alert: { type: String },
+            dec: { type: String },
         }
     );
 
 const ModeloLogins = mongoose.model('login', ModeloLogin);
-const ModeloDevices = mongoose.model('device', ModeloDevice); 
-const ModeloDataLogs = mongoose.model('dataLog', ModeloDataLog); 
+const ModeloDevices = mongoose.model('device', ModeloDevice);
+const ModeloDataLogs = mongoose.model('dataLog', ModeloDataLog);
 
-module.exports = {ModeloLogins, ModeloDevices, ModeloDataLogs};
+module.exports = { ModeloLogins, ModeloDevices, ModeloDataLogs };
 
 

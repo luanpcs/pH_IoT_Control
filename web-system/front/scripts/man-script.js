@@ -6,7 +6,7 @@ function showManPopup() {
     setTimeout(() => {
         popup.style.opacity = 1;
     }, 10);
-    
+
     document.body.style.overflow = "hidden";
     updatepHIndicator()
 }
@@ -17,111 +17,52 @@ export function hideManPopup() {
     setTimeout(() => {
         popup.style.display = "none";
     }, 10);
-    
+
     document.body.style.overflow = "auto";
 }
 
-function updatepHIndicator()
-{
-    setInterval(function() {
+function updatepHIndicator() {
+    setInterval(function () {
         var phatual = parseFloat(document.getElementById('mqttData').textContent)
-        
-        if(isNaN(phatual))
-        {
+
+        if (isNaN(phatual)) {
             phatual = 0.0
         }
-        
+
         document.getElementById('setaAtualMan').style.left = (phatual.toFixed(1) / 14) * 100 + '%';
-        document.getElementById('phAtualMan').textContent = phatual .toFixed(1)
+        document.getElementById('phAtualMan').textContent = phatual.toFixed(1)
     }, 100);
 }
 
-function sendManUp()
-{
-    const payload = {msgType: 'modo', modo: "m", value: 1};
+function sendManUp() {
+    const payload = { msgType: 'modo', modo: "m", value: 1 };
     mqttSend(JSON.stringify(payload))
-    contagemUp()
 }
 
-function sendManDown()
-{
-    const payload = {msgType: 'modo', modo: "m", value: 0};
+function sendManDown() {
+    const payload = { msgType: 'modo', modo: "m", value: 0 };
     mqttSend(JSON.stringify(payload))
-    contagemDown()
 }
-
-function contagemUp() {
-    var btn = document.getElementById('btnConfigManUp');
-    var btn2 = document.getElementById('btnConfigManDown');
-
-    var bar = document.createElement('div');
-    bar.className = 'barUp';
-
-    var textLayer = document.createElement('div');
-    textLayer.className = 'textBarra';
-    textLayer.innerHTML = 'Aumentar pH'; 
-
-    btn.textContent = ''
-    btn.appendChild(bar);
-    btn.appendChild(textLayer);
-
-    btn.disabled = true;
-    btn2.disabled = true;
-
-    var segundos = 5;
-    var intervalo = setInterval(function () {
-        var progresso = ((5 - segundos) / 5) * 100;
-        bar.style.width = progresso + '%';
-        
-        if (segundos < 0) {
-            clearInterval(intervalo);
-            btn.removeChild(bar);
-            btn.removeChild(textLayer);
-            btn.textContent = 'Aumentar pH'
-            btn.disabled = false; 
-            btn2.disabled = false;
-        }
-        segundos--;
-    }, 1000);
-}
-
-function contagemDown() {
-    var btn = document.getElementById('btnConfigManDown');
-    var btn2 = document.getElementById('btnConfigManUp');
-
-    var bar = document.createElement('div');
-    bar.className = 'barDown';
-
-    var textLayer = document.createElement('div');
-    textLayer.className = 'textBarra';
-    textLayer.innerHTML = 'Diminuir pH'; 
-
-    btn.textContent = ''
-    btn.appendChild(bar);
-    btn.appendChild(textLayer);
-
-    btn.disabled = true;
-    btn2.disabled = true;
-
-    var segundos = 5;
-    var intervalo = setInterval(function () {
-        var progresso = ((5 - segundos) / 5) * 100;
-        bar.style.width = progresso + '%';
-        
-        if (segundos < 0) {
-            clearInterval(intervalo);
-            btn.removeChild(bar);
-            btn.removeChild(textLayer);
-            btn.textContent = 'Diminuir pH'
-            btn.disabled = false; 
-            btn2.disabled = false;
-        }
-        segundos--;
-    }, 1000);
-}
-
 
 document.getElementById("man-popup-close").addEventListener("click", hideManPopup);
 document.getElementById("Btn-Man").addEventListener("click", showManPopup);
 document.getElementById("btnConfigManUp").addEventListener("click", sendManUp);
 document.getElementById("btnConfigManDown").addEventListener("click", sendManDown);
+
+const btn = document.querySelector(".btn");
+btn.addEventListener("click", () => {
+    btn.classList.add("active");
+
+    setTimeout(() => {
+        btn.classList.remove("active");
+    }, 3000);
+});
+
+const btn1 = document.querySelector(".btn1");
+btn1.addEventListener("click", () => {
+    btn1.classList.add("active");
+
+    setTimeout(() => {
+        btn1.classList.remove("active");
+    }, 3000);
+});

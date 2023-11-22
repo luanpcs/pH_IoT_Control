@@ -1,29 +1,34 @@
 
-export function sendId() {
+export function  sendId() {
     const url = 'http://localhost:3000/devices';
-    const id = "OLIVIA";
-    const id2 = new Date();
+    const alert = "pH superior a 7.5";
+    const dec = new Date().toLocaleString();
 
-console.log(JSON.stringify({id2, id}))
+console.log(JSON.stringify({alert, dec}))
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id}),
+        body: JSON.stringify({alert, dec}),
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
 }
 
-export function getAllDevices() {
+export async function getAllDevices() {
     const url = 'http://localhost:3000/devices';
 
-    fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error; // Rejeita a Promise com o erro
+    }
 }
 
  export function registerUser(user, password) {

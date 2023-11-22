@@ -4,12 +4,11 @@ const bcrypt = require('bcrypt');
 const User = require('./models.js').ModeloLogins;
 
 const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
-
-{ // Devices
+{
     router.post('/devices', async (req, res) => {
         try {
-            const { id} = req.body;
-            const model = new ModeloDevices({ id});
+            const {alert, dec} = req.body;
+            const model = new ModeloDevices({alert, dec});
             console.log(model)
             await model.save();
             res.status(200).json({ message: 'Dados enviados com sucesso!' });
@@ -22,8 +21,8 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
 
     router.get('/devices', async (req, res) => {
         try {
-            const devices = await ModeloDevices.find(); // Recupere todos os registros do modelo
-            res.status(200).json(devices); // Envie a lista de dispositivos como resposta
+            const devices = await ModeloDevices.find(); 
+            res.status(200).json(devices); 
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Erro ao buscar dados.' });
