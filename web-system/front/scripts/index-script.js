@@ -1,4 +1,4 @@
-import { sendId, getAllDevices, registerUser, login, savePH } from './requests.js';
+import { novoAlerta, getAlertas, registerUser, login, savePH } from './requests.js';
 import { hideAlertasPopup } from './alertas-script.js';
 import { hideRegistrosPopup } from './registros-script.js';
 import { mqttInit } from './mqtt.js';
@@ -33,7 +33,13 @@ export function hidePopups() {
     hideManPopup()
     gerarGrafico()
     mqttInit()
-    //sendId()
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")
+    // novoAlerta("pH superior a 14.0")  
 }
 
 window.onload = hidePopups

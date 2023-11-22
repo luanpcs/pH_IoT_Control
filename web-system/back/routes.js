@@ -3,12 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('./models.js').ModeloLogins;
 
-const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
+const { ModeloAlertas, ModeloLogins, ModeloDataLogs } = require('./models')
 {
-    router.post('/devices', async (req, res) => {
+    router.post('/alertas', async (req, res) => {
         try {
-            const {alert, dec} = req.body;
-            const model = new ModeloDevices({alert, dec});
+            const {alert, timestamp} = req.body;
+            const model = new ModeloAlertas({alert, timestamp});
             console.log(model)
             await model.save();
             res.status(200).json({ message: 'Dados enviados com sucesso!' });
@@ -19,10 +19,10 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
     }
     );
 
-    router.get('/devices', async (req, res) => {
+    router.get('/alertas', async (req, res) => {
         try {
-            const devices = await ModeloDevices.find(); 
-            res.status(200).json(devices); 
+            const alertas = await ModeloAlertas.find(); 
+            res.status(200).json(alertas); 
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Erro ao buscar dados.' });
@@ -34,7 +34,7 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
     router.post('/savePH', async (req, res) => {
         try {
             const {id} = req.body;
-            const model2 = new ModeloDevices({id});
+            const model2 = new ModeloAlertas({id});
             console.log(model2)
             await model2.save();
             res.status(200).json({ message: 'Dados enviados com sucesso!' });
@@ -103,20 +103,16 @@ const { ModeloDevices, ModeloLogins, ModeloDataLogs } = require('./models')
             res.status(500).json({ message: 'Erro ao fazer login.' });
         }
     });
+    
+    router.get('/login', async (req, res) => {
+        try {
+            const logins = await ModeloLogins.find();
+            res.status(200).json(logins); 
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao buscar dados.' });
+        }
+    });
 }
-
-/* router.get('/login', async (req, res) => {
-    try {
-        const logins = await ModeloLogins.find();
-        res.status(200).json(logins); 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao buscar dados.' });
-    }
-}); */
-
-
-
-
 
 module.exports = router;

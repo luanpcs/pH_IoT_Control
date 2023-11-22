@@ -1,4 +1,4 @@
-import { sendId, getAllDevices, registerUser, login, savePH } from './requests.js';
+import { novoAlerta, getAlertas, registerUser, login, savePH } from './requests.js';
 
 function showAlertasPopup() {
     const popup = document.getElementById("alertas-popup");
@@ -22,7 +22,7 @@ export function hideAlertasPopup() {
     const alertDataBody = document.getElementById("alertDataBody");
 
     while (alertDataBody.firstChild) {
-       alertDataBody.removeChild(alertDataBody.firstChild);
+        alertDataBody.removeChild(alertDataBody.firstChild);
     }
 }
 
@@ -33,15 +33,25 @@ const alertDataBody = document.getElementById("alertDataBody");
 const addDataButton = document.getElementById("alertas-popup-button");
 
 addDataButton.addEventListener("click", async function () {
-    try {
-        var data = await getAllDevices();
-        data.forEach(function (device) {
-            addDataToAlertTable(device);
-        });
+    document.getElementById('loadingGif').style.display = 'block';
 
-    } catch (error) {
-        console.error("Erro ao obter os dados:", error);
-    }
+    setTimeout(async function () {
+        try {
+            var data = await getAlertas();
+            data.forEach(function (device) {
+                addDataToAlertTable(device);
+            });
+
+            // Oculta o GIF após obter e processar os dados
+            document.getElementById('loadingGif').style.display = 'none';
+
+        } catch (error) {
+            console.error("Erro ao obter os dados:", error);
+
+            // Em caso de erro, também é importante ocultar o GIF
+            document.getElementById('loadingGif').style.display = 'none';
+        }
+    }, 2000);
 });
 
 function addDataToAlertTable(data) {
@@ -61,7 +71,7 @@ function addDataToAlertTable(data) {
     alertCell.appendChild(image);
 
     descriptionCell.textContent = data.alert;
-    timeCell.textContent = data.dec;
+    timeCell.textContent = data.timestamp;
     add.textContent = "Sonda 1"
 
     newRow.appendChild(alertCell);

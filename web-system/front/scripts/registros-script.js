@@ -1,4 +1,4 @@
-import { sendId, getAllDevices, registerUser, login, savePH } from './requests.js';
+import { novoAlerta, getAlertas, registerUser, login, savePH } from './requests.js';
 
 function showRegistrosPopup() {
     const popup = document.getElementById("registros-popup");
@@ -31,7 +31,7 @@ const addDataButton = document.getElementById("registros-popup-button");
 
 addDataButton.addEventListener("click", async function () {
     try {
-        var data = await getAllDevices();
+        var data = await getAlertas();
         data.forEach(function (device) {
             addDataToRegTable(device);
         });

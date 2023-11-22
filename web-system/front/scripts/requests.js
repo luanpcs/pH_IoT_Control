@@ -1,24 +1,26 @@
 
-export function  sendId() {
-    const url = 'http://localhost:3000/devices';
-    const alert = "Alcalinizante adicionado";
-    const dec = new Date().toLocaleString();
+export function novoAlerta(alerta) {
+    const url = 'http://localhost:3000/alertas';
+    const alert = alerta;
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2);
+    const timestamp = `${(now.getHours() < 10 ? '0' : '') + now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()} ${(now.getDate() < 10 ? '0' : '') + " - " + now.getDate()}/${(now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1)}/${year}`;
 
-console.log(JSON.stringify({alert, dec}))
+    console.log(JSON.stringify({ alert, timestamp }))
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({alert, dec}),
+        body: JSON.stringify({ alert, timestamp }),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 }
 
-export async function getAllDevices() {
-    const url = 'http://localhost:3000/devices';
+export async function getAlertas() {
+    const url = 'http://localhost:3000/alertas';
 
     try {
         const response = await fetch(url);
@@ -31,7 +33,7 @@ export async function getAllDevices() {
     }
 }
 
- export function registerUser(user, password) {
+export function registerUser(user, password) {
     const url = 'http://localhost:3000/register';
 
     fetch(url, {
@@ -39,11 +41,11 @@ export async function getAllDevices() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({user, password}),
+        body: JSON.stringify({ user, password }),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 
 }
 
@@ -55,30 +57,30 @@ export function login(user, password) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({user, password}),
+        body: JSON.stringify({ user, password }),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 
 }
 
 export function savePH() {
     const url = 'http://localhost:3000/savePH';
 
-    const temp =1
+    const temp = 1
     const randomPH = 1;
-    const json = JSON.stringify({temp})
+    const json = JSON.stringify({ temp })
     console.log(json)
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({temp}),
+        body: JSON.stringify({ temp }),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 
 }

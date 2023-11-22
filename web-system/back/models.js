@@ -16,18 +16,18 @@ const ModeloLogin = new mongoose.Schema
         }
     );
 
-const ModeloDevice = new mongoose.Schema
+const ModeloAlerta = new mongoose.Schema
     (
         {
             alert: { type: String },
-            dec: { type: String },
+            timestamp: { type: String },
         }
     );
 
 const ModeloLogins = mongoose.model('login', ModeloLogin);
-const ModeloDevices = mongoose.model('device', ModeloDevice);
+const ModeloAlertas = mongoose.model('alertas', ModeloAlerta);
 const ModeloDataLogs = mongoose.model('dataLog', ModeloDataLog);
 
-module.exports = { ModeloLogins, ModeloDevices, ModeloDataLogs };
+module.exports = { ModeloLogins, ModeloAlertas, ModeloDataLogs };
 
 
