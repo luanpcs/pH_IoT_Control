@@ -1,7 +1,7 @@
 
 export function  sendId() {
     const url = 'http://localhost:3000/devices';
-    const alert = "pH superior a 7.5";
+    const alert = "Alcalinizante adicionado";
     const dec = new Date().toLocaleString();
 
 console.log(JSON.stringify({alert, dec}))

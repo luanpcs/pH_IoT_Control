@@ -1,5 +1,6 @@
 import { sendId, getAllDevices, registerUser, login, savePH } from './requests.js';
 import { hideAlertasPopup } from './alertas-script.js';
+import { hideRegistrosPopup } from './registros-script.js';
 import { mqttInit } from './mqtt.js';
 import { hideAutPopup } from './aut-script.js';
 import { hideManPopup } from './man-script.js';
@@ -32,7 +33,7 @@ export function hidePopups() {
     hideManPopup()
     gerarGrafico()
     mqttInit()
-    // sendId()
+    //sendId()
 }
 
 window.onload = hidePopups

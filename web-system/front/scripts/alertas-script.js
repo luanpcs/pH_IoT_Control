@@ -19,26 +19,24 @@ export function hideAlertasPopup() {
 
     document.body.style.overflow = "auto";
 
-    const dataBody = document.getElementById("dataBody");
+    const alertDataBody = document.getElementById("alertDataBody");
 
-    while (dataBody.firstChild) {
-       dataBody.removeChild(dataBody.firstChild);
+    while (alertDataBody.firstChild) {
+       alertDataBody.removeChild(alertDataBody.firstChild);
     }
 }
 
 document.getElementById("alertas-popup-button").addEventListener("click", showAlertasPopup);
 document.getElementById("alertas-popup-close").addEventListener("click", hideAlertasPopup);
 
-
-
-const dataBody = document.getElementById("dataBody");
+const alertDataBody = document.getElementById("alertDataBody");
 const addDataButton = document.getElementById("alertas-popup-button");
 
 addDataButton.addEventListener("click", async function () {
     try {
         var data = await getAllDevices();
         data.forEach(function (device) {
-            addDataToTable(device);
+            addDataToAlertTable(device);
         });
 
     } catch (error) {
@@ -46,7 +44,7 @@ addDataButton.addEventListener("click", async function () {
     }
 });
 
-function addDataToTable(data) {
+function addDataToAlertTable(data) {
     const newRow = document.createElement("tr");
     const alertCell = document.createElement("td");
     const descriptionCell = document.createElement("td");
@@ -57,7 +55,6 @@ function addDataToTable(data) {
     descriptionCell.classList.add("decAlert");
     timeCell.classList.add("timeAlert");
     add.classList.add("timeAlert");
-
 
     const image = document.createElement("img");
     image.src = "../screens/assets/warning.png";
@@ -72,7 +69,7 @@ function addDataToTable(data) {
     newRow.appendChild(timeCell);
     newRow.appendChild(add);
 
-    dataBody.appendChild(newRow);
+    alertDataBody.appendChild(newRow);
 
     newRow.classList.remove("invisible");
 }
