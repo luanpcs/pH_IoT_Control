@@ -1,4 +1,4 @@
-import { novoAlerta, getAlertas, registerUser, login, savePH } from './requests.js';
+import { novoAlerta, getAlertas } from './requests.js';
 
 function showAlertasPopup() {
     const popup = document.getElementById("alertas-popup");
@@ -33,7 +33,7 @@ const alertDataBody = document.getElementById("alertDataBody");
 const addDataButton = document.getElementById("alertas-popup-button");
 
 addDataButton.addEventListener("click", async function () {
-    document.getElementById('loadingGif').style.display = 'block';
+    document.getElementById('loadingGifAlertas').style.display = 'block';
 
     setTimeout(async function () {
         try {
@@ -42,14 +42,12 @@ addDataButton.addEventListener("click", async function () {
                 addDataToAlertTable(device);
             });
 
-            // Oculta o GIF após obter e processar os dados
-            document.getElementById('loadingGif').style.display = 'none';
+            document.getElementById('loadingGifAlertas').style.display = 'none';
 
         } catch (error) {
             console.error("Erro ao obter os dados:", error);
 
-            // Em caso de erro, também é importante ocultar o GIF
-            document.getElementById('loadingGif').style.display = 'none';
+            document.getElementById('loadingGifAlertas').style.display = 'none';
         }
     }, 2000);
 });
@@ -75,8 +73,8 @@ function addDataToAlertTable(data) {
     add.textContent = "Sonda 1"
 
     newRow.appendChild(alertCell);
-    newRow.appendChild(descriptionCell);
     newRow.appendChild(timeCell);
+    newRow.appendChild(descriptionCell);
     newRow.appendChild(add);
 
     alertDataBody.appendChild(newRow);

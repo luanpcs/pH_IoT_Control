@@ -1,4 +1,4 @@
-import { novoAlerta, getAlertas, registerUser, login, savePH } from './requests.js';
+import { novoRegistro, getRegistros } from './requests.js';
 
 function showRegistrosPopup() {
     const popup = document.getElementById("registros-popup");
@@ -12,7 +12,7 @@ function showRegistrosPopup() {
     const regDataBody = document.getElementById("regDataBody");
 
     while (regDataBody.firstChild) {
-       regDataBody.removeChild(regDataBody.firstChild);
+        regDataBody.removeChild(regDataBody.firstChild);
     }
 }
 
@@ -30,15 +30,23 @@ const alertDataBody = document.getElementById("regDataBody");
 const addDataButton = document.getElementById("registros-popup-button");
 
 addDataButton.addEventListener("click", async function () {
-    try {
-        var data = await getAlertas();
-        data.forEach(function (device) {
-            addDataToRegTable(device);
-        });
+    document.getElementById('loadingGifRegistros').style.display = 'block';
 
-    } catch (error) {
-        console.error("Erro ao obter os dados:", error);
-    }
+    setTimeout(async function () {
+        try {
+            var data = await getRegistros();
+            data.forEach(function (device) {
+                addDataToRegTable(device);
+            });
+
+            document.getElementById('loadingGifRegistros').style.display = 'none';
+
+        } catch (error) {
+            console.error("Erro ao obter os dados:", error);
+
+            document.getElementById('loadingGifRegistros').style.display = 'none';
+        }
+    }, 2000);
 });
 
 function addDataToRegTable(data) {
@@ -46,17 +54,17 @@ function addDataToRegTable(data) {
     const reg = document.createElement("td");
     const timeCell = document.createElement("td");
     const add = document.createElement("td");
-        
+
     reg.classList.add("regLine");
     timeCell.classList.add("regLine");
     add.classList.add("regLine");
-    
-    reg.textContent = data.alert;
-    timeCell.textContent = data.dec;
+
+    reg.textContent = data.log;
+    timeCell.textContent = data.timestamp;
     add.textContent = "Sonda 1"
 
-    newRow.appendChild(reg);
     newRow.appendChild(timeCell);
+    newRow.appendChild(reg);
     newRow.appendChild(add);
 
 

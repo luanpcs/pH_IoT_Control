@@ -1,10 +1,9 @@
-
 export function novoAlerta(alerta) {
     const url = 'http://localhost:3000/alertas';
     const alert = alerta;
     const now = new Date();
     const year = now.getFullYear().toString().slice(-2);
-    const timestamp = `${(now.getHours() < 10 ? '0' : '') + now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()} ${(now.getDate() < 10 ? '0' : '') + " - " + now.getDate()}/${(now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1)}/${year}`;
+    const timestamp = `${(now.getDate() < 10 ? '0' : '') + now.getDate()}/${(now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1)}/${year} ${(now.getHours() < 10 ? '0' : '') + " - " + now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()}`;
 
     console.log(JSON.stringify({ alert, timestamp }))
     fetch(url, {
@@ -33,7 +32,41 @@ export async function getAlertas() {
     }
 }
 
-export function registerUser(user, password) {
+export function novoRegistro(registro) {
+    const url = 'http://localhost:3000/registros';
+    const log = registro;
+    const now = new Date();
+    const year = now.getFullYear().toString().slice(-2);
+    const timestamp = `${(now.getDate() < 10 ? '0' : '') + now.getDate()}/${(now.getMonth() < 9 ? '0' : '') + (now.getMonth() + 1)}/${year} ${(now.getHours() < 10 ? '0' : '') + " - " + now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()}`;
+
+    console.log(JSON.stringify({ log, timestamp }))
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ log, timestamp }),
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
+}
+
+export async function getRegistros() {
+    const url = 'http://localhost:3000/registros';
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+/* export function registerUser(user, password) {
     const url = 'http://localhost:3000/register';
 
     fetch(url, {
@@ -83,4 +116,4 @@ export function savePH() {
         .then(data => console.log(data))
         .catch(error => console.error(error));
 
-}
+} */

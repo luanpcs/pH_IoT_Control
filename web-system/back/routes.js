@@ -3,8 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('./models.js').ModeloLogins;
 
-const { ModeloAlertas, ModeloLogins, ModeloDataLogs } = require('./models')
-{
+const { ModeloAlertas, ModeloLogins, ModeloRegs } = require('./models')
+
+{ // Alertas
     router.post('/alertas', async (req, res) => {
         try {
             const {alert, timestamp} = req.body;
@@ -30,6 +31,32 @@ const { ModeloAlertas, ModeloLogins, ModeloDataLogs } = require('./models')
     });
 }
 
+{ // Registros
+    router.post('/registros', async (req, res) => {
+        try {
+            const {log, timestamp} = req.body;
+            const model = new ModeloRegs({log, timestamp});
+            console.log(model)
+            await model.save();
+            res.status(200).json({ message: 'Dados enviados com sucesso!' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao enviar dados.' });
+        }
+    }
+    );
+
+    router.get('/registros', async (req, res) => {
+        try {
+            const alertas = await ModeloRegs.find(); 
+            res.status(200).json(alertas); 
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao buscar dados.' });
+        }
+    });
+}
+
 { // phDatas
     router.post('/savePH', async (req, res) => {
         try {
@@ -47,7 +74,7 @@ const { ModeloAlertas, ModeloLogins, ModeloDataLogs } = require('./models')
 
     router.get('/savePH', async (req, res) => {
         try {
-            const phData = await ModeloDataLogs.find(); // Recupere todos os registros do modelo
+            const phData = await ModeloRegs.find(); // Recupere todos os registros do modelo
             res.status(200).json(phData); // Envie a lista de dispositivos como resposta
         } catch (error) {
             console.error(error);

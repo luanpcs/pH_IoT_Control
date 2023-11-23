@@ -166,22 +166,25 @@ body {
     flex-direction: column;
 }
 
-#tableAlertas {
+#regDataTable,
+#alertDataTable {
     overflow-y: auto;
 }
 
-#tableAlertas::-webkit-scrollbar {
+#regDataTable::-webkit-scrollbar,
+#alertDataTable::-webkit-scrollbar {
     width: 1vh;
 }
 
-#tableAlertas::-webkit-scrollbar-thumb {
+#regDataTable::-webkit-scrollbar-thumb,
+#alertDataTable::-webkit-scrollbar-thumb {
     background-color: #2F3B76;
 }
 
-#tableAlertas::-webkit-scrollbar-track {
+#regDataTable::-webkit-scrollbar-track,
+#alertDataTable::-webkit-scrollbar-track {
     background-color: #f1f1f18e;
 }
-
 
 #alertDataTable {
     width: 100%;
@@ -233,7 +236,7 @@ body {
     position: absolute;
 }
 
-.alertas-popup-header,
+#alertas-popup-header,
 .registros-popup-header,
 .aut-popup-header,
 .man-popup-header {
@@ -244,7 +247,8 @@ body {
     border-top-left-radius: 10px;
 }
 
-#loadingGif {
+#loadingGifRegistros,
+#loadingGifAlertas {
     width: 30vh;
     height: 30vh;
     position: fixed;
