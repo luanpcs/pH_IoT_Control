@@ -1,12 +1,12 @@
 import { novoAlerta, novoRegistro } from './requests.js';
 import { hideAlertasPopup } from './alertas-script.js';
 import { hideRegistrosPopup } from './registros-script.js';
+import { hidePreReportPopup, hideReportPopup } from './report-script.js';
 import { mqttInit } from './mqtt.js';
 import { hideAutPopup } from './aut-script.js';
 import { hideManPopup } from './man-script.js';
 
 export function hidePopups() {
-
     var setaAtualAut = document.getElementById('setaAtual');
     var setaAtualMan = document.getElementById('setaAtualMan');
     var textoAutAtual = document.getElementsByClassName('texto3');
@@ -29,6 +29,8 @@ export function hidePopups() {
     hideAlertasPopup();
     hideAutPopup()
     hideManPopup()
+    hideReportPopup()
+    hidePreReportPopup()
     gerarGrafico()
     mqttInit()
     
