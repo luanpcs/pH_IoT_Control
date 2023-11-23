@@ -51,22 +51,28 @@ addDataButton.addEventListener("click", async function () {
 
 function addDataToRegTable(data) {
     const newRow = document.createElement("tr");
+    const img = document.createElement("td");
     const reg = document.createElement("td");
     const timeCell = document.createElement("td");
     const add = document.createElement("td");
 
+    img.classList.add("regImg")
     reg.classList.add("regLine");
     timeCell.classList.add("regLine");
     add.classList.add("regLine");
-
+    
+    const image = document.createElement("img");
+    image.src = "../screens/assets/log.png";
+    img.appendChild(image);
+    
     reg.textContent = data.log;
     timeCell.textContent = data.timestamp;
     add.textContent = "Sonda 1"
-
+    
+    newRow.appendChild(img);
     newRow.appendChild(timeCell);
     newRow.appendChild(reg);
     newRow.appendChild(add);
-
 
     alertDataBody.appendChild(newRow);
 

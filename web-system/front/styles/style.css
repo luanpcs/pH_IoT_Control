@@ -235,14 +235,16 @@ body {
     padding: 1vh;
 }
 
-.registros-popup-content {
-    width: 80vh;
-}
-
-.report-popup-content,
-.pre-report-popup-content {
+.report-popup-content
+{
     width: 60%;
     height: 80%;
+}
+
+.pre-report-popup-content
+{
+    width: 40%;
+    height: 60%;
 }
 
 .aut-popup-content {
@@ -444,7 +446,8 @@ body {
 }
 
 #btnConfigManUp,
-#btnConfigManDown {
+#btnConfigManDown,
+#export-btn {
     color: white;
     border: none;
     width: 30vh;
@@ -536,7 +539,8 @@ a {
 
 
 .btn,
-.btn1 {
+.btn1,
+.export {
     transform: translate(-50%, -50%);
     border-radius: 1vh;
     height: 6vh;
@@ -552,12 +556,14 @@ a {
 }
 
 .btn.active,
-.btn1.active {
+.btn1.active,
+.export.active{
     height: 2vh;
 }
 
 .btn::before,
-.btn1::before {
+.btn1::before,
+.export::before {
     content: "";
     position: absolute;
     top: 0;
@@ -565,6 +571,18 @@ a {
     height: 100%;
     width: 100%;
     background: #376d36;
+    border-radius: 55px;
+    transition: all 3s ease-in-out;
+}
+
+.export::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background: #4660e4;
     border-radius: 55px;
     transition: all 3s ease-in-out;
 }
@@ -585,6 +603,9 @@ a {
     animation: layer 3s ease-in-out forwards;
 }
 
+.export.active::before {
+    animation: layer 3s ease-in-out forwards;
+}
 
 @keyframes layer {
     100% {
@@ -612,11 +633,25 @@ a {
     transition-delay: 0.2s;
 }
 
+.export .soft {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    transition-delay: 0.2s;
+}
+
 .btn.active .soft {
     transform: translateY(60px);
 }
 
 .btn1.active .soft {
+    transform: translateY(60px);
+}
+
+.export.active .soft {
     transform: translateY(60px);
 }
 
@@ -632,11 +667,21 @@ a {
     font-weight: 500;
 }
 
+.export .soft i,
+.export .soft .btn-text {
+    color: #fff;
+    font-weight: 500;
+}
+
 .btn .soft .btn-text {
     margin-left: 8px;
 }
 
-.btn1 .btn1 .soft .btn-text {
+.btn1 .soft .btn-text {
+    margin-left: 8px;
+}
+
+.export .soft .btn-text {
     margin-left: 8px;
 }
 
@@ -644,8 +689,9 @@ a {
     display: none;
 }
 
-.alertImg img {
-    width: 8vh;
+.alertImg img,
+.regImg img {
+    width: 5vh;
     margin-left: 1vh;
 }
 
@@ -668,9 +714,43 @@ a {
     width: 50vh;
 }
 
-#export-inst
-{
+#export-inst {
     color: #2F3B76;
     font-size: 4vh;
-    margin-top: 3vh;
+    margin-top: 7vh;
 }
+
+#datepicker {
+    font-size: 4vh;
+    color: #2F3B76;
+    width: 50vh;
+    height: 10vh;
+    border-radius: 1vh;
+    margin-top: 5vh;
+}
+
+#export-btn
+{
+    margin-top: 7vh;
+    background-color: #2F3A75;
+    width: 50vh;
+
+}
+
+.pre-export-form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-top: -10vh;
+}
+
+.export
+{
+    margin-left: 50vh;
+    height: 10vh;
+}
+
+

@@ -1,14 +1,34 @@
 import { novoAlerta, getAlertas, getRegistros } from './requests.js';
 
 export function showReportPopup() {
-    hidePreReportPopup()
-    const popup = document.getElementById("report-popup");
-    popup.style.display = "block";
-    setTimeout(() => {
-        popup.style.opacity = 1;
-    }, 10);
+    setTimeout(async () => {
+        hidePreReportPopup()
 
-    document.body.style.overflow = "hidden";
+        const popup = document.getElementById("report-popup");
+        popup.style.display = "block";
+        setTimeout(() => {
+            popup.style.opacity = 1;
+        }, 10);
+        
+        var alertsData = await getAlertas();
+        var regsData = await getRegistros();
+        addDataToAlertTable(alertsData, regsData);
+
+
+        document.body.style.overflow = "hidden";
+
+        const table = document.getElementById('reportDataTable');
+        const container = table.cloneNode(true);
+
+        container.style.marginTop = '0mm';
+        html2pdf(container, {
+            margin: 1,
+            filename: 'Relatorio.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 1 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        });
+    }, 3500);
 }
 
 export function hideReportPopup() {
@@ -50,33 +70,10 @@ export function hidePreReportPopup() {
 document.getElementById("report-popup-button").addEventListener("click", showPreReportPopup);
 document.getElementById("pre-report-popup-close").addEventListener("click", hidePreReportPopup);
 
-document.getElementById("export").addEventListener("click", showReportPopup);
+document.getElementById("export-btn").addEventListener("click", showReportPopup);
 document.getElementById("report-popup-close").addEventListener("click", hideReportPopup);
 
 const reportDataBody = document.getElementById("reportDataBody");
-
-const addDataButton = document.getElementById("export");
-
-addDataButton.addEventListener("click", async function () {
-    document.getElementById('loadingGifReport').style.display = 'block';
-
-    setTimeout(async function () {
-        try {
-            var alertsData = await getAlertas();
-            var regsData = await getRegistros();
-
-            addDataToAlertTable(alertsData, regsData);
-            document.getElementById('loadingGifReport').style.display = 'none';
-
-
-        } catch (error) {
-            console.error("Erro ao obter os dados:", error);
-
-            document.getElementById('loadingGifReport').style.display = 'none';
-        }
-    }, 2);
-});
-
 function addDataToAlertTable(alertsData, regsData) {
     const pickedDate = getData()
 
@@ -210,23 +207,6 @@ function addDataToAlertTable(alertsData, regsData) {
     reportDataBody.appendChild(table);
 }
 
-document.getElementById('export').addEventListener('click', () => {
-    setTimeout(function () {
-        const table = document.getElementById('reportDataTable');
-        const container = table.cloneNode(true);
-
-        container.style.marginTop = '0mm';
-        html2pdf(container, {
-            margin: 5,
-            filename: 'Relatorio.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 1 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        });
-    }, 1000);
-});
-
-
 export function getData() {
     var selectedDate = document.getElementById('datepicker').value;
     var formattedDate = formatarData(selectedDate);
@@ -246,3 +226,12 @@ function formatarData(data) {
 
     return dia + '/' + mes + '/' + ano;
 }
+
+const btn = document.querySelector(".export");
+btn.addEventListener("click", () => {
+    btn.classList.add("active");
+
+    setTimeout(() => {
+        btn.classList.remove("active");
+    }, 3000);
+});

@@ -100,7 +100,6 @@
 				<tbody id="reportDataBody"></tbody>
 			</table>
 		</div>
-		<img id="loadingGifReport" src="assets/l3.gif" alt="GIF">
 	</div>
 
 	<div id="pre-report-popup" class="pre-report-popup">
@@ -109,14 +108,19 @@
 				<div>Relatórios</div>
 				<div class="close" id="pre-report-popup-close">&times;</div>
 			</div>
-			<div>
+			<div class = "pre-export-form">
 				<div id="export-inst">
 					Caso deseje o relatório de uma data específica, selecione abaixo:
 				</div>
 
-				<label for="datepicker">Escolha uma data:</label>
-				<input type="date" id="datepicker">
-				<button id="export">Obter Data</button>
+				<div class="date-picker-container">
+					<input type="date" id="datepicker">
+				</div>
+				<div id="export-btn" class="export">
+					<div class="soft">
+						<a><span class="btn-text">Exportar</span></a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
