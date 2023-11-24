@@ -14,7 +14,6 @@ export function showReportPopup() {
         var regsData = await getRegistros();
         addDataToAlertTable(alertsData, regsData);
 
-
         document.body.style.overflow = "hidden";
 
         const table = document.getElementById('reportDataTable');

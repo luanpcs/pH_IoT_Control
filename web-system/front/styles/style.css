@@ -753,4 +753,8 @@ a {
     height: 10vh;
 }
 
-
+.modo-ativado
+{
+    background-color: #1D2446;
+    color: white
+}

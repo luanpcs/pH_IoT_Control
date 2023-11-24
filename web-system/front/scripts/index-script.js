@@ -33,6 +33,12 @@ export function hidePopups() {
     hidePreReportPopup()
     gerarGrafico()
     mqttInit()
+
+    const btnAut = document.getElementById('Btn-Aut')
+    const btnMan = document.getElementById('Btn-Man')
+
+    btnAut.classList.remove('modo-ativado')
+    btnMan.classList.add('modo-ativado')
     
     // novoRegistro("Acidificante adicionado")
     // novoRegistro("Alcanilizante adicionado")
