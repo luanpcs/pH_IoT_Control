@@ -27,9 +27,8 @@ body {
 
 .grid-block {
     background-color: #2F3B76;
-    font-size: 4vh;
     color: #fff;
-    border-radius: 15px;
+    border-radius:1.5vh;
 }
 
 .block-content {
@@ -39,6 +38,24 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 2px;
+}
+
+#graficoPH
+{
+    width: 99%;
+    height: 99%;
+    background-color: white;
+}
+
+.graph {
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 2;
+    background-color: white;
+    border: 2px solid #2F3B76;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .label-titles {
@@ -73,7 +90,7 @@ body {
 .img_alertas {
     width: 15vh;
     height: 15vh;
-    margin-top: 1vh;
+    margin-top: 0.5vh;
     cursor: pointer;
 }
 
@@ -105,14 +122,6 @@ body {
     border: none;
     width: 40%;
     margin-top: 2vh;
-}
-
-.graph {
-    grid-column: 2 / span 2;
-    grid-row: 1 / span 2;
-    background-color: #E6EFFF;
-    border: 2px solid #2F3B76;
-    color: #2F3B76;
 }
 
 .close {
@@ -758,3 +767,5 @@ a {
     background-color: #1D2446;
     color: white
 }
+
+

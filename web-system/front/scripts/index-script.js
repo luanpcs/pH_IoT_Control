@@ -10,11 +10,6 @@ export function systemInit() {
     mqttInit()
     screenInit()
     // gerarMockDatas()
-
-
-    setInterval(function () {
-        //gerarGrafico(1, 2)
-    }, 1000);
 }
 
 function screenInit() {
@@ -54,8 +49,7 @@ function hidePopups() {
     hidePreReportPopup()
 }
 
-function gerarMockDatas()
-{
+function gerarMockDatas(){
     novoRegistro("Acidificante adicionado")
     novoRegistro("Alcanilizante adicionado")
     novoRegistro("Modo automático ativado")

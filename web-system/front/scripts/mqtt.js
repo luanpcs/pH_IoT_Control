@@ -24,6 +24,10 @@ function mqttRec(payload) {
                 {
                     const valor = payloadJSON.value.toString()
                     document.getElementById('mqttData').textContent = parseFloat(valor).toFixed(1);
+                    const now = new Date();
+                    const year = now.getFullYear().toString().slice(-2);
+                    const timestamp = `${now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()}`;
+                    addGraphData(timestamp, valor)
                 }
                 break;
 
