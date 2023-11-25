@@ -5,15 +5,20 @@ const initData = [{
     x: [""],
     y: ["0"],
     mode: "lines+markers",
-    line: { shape: 'spline' },
+    line: {
+        shape: 'spline',
+        width: 3,
+    },
     marker: {
-        size: 7,
+        size: 10,
         color: '#2F3B76',
         symbol: 'circle'
-    }
+    },
+    displayModeBar: false
 }];
 
 const layout = {
+    displayModeBar: false,
     title: "pH x Tempo",
     font: {
         size: 20,
@@ -34,7 +39,7 @@ const layout = {
         },
         range: [0, 14],
         autorange: false,
-        dtick: 1
+        dtick: 1,
     },
     xaxis: {
         title: "Tempo",
@@ -48,7 +53,11 @@ const layout = {
             family: "Alata",
             color: "#2F3B76"
         },
-    }
+        showgrid: false,
+    },
+    plot_bgcolor: "#E6EFFF",
+    paper_bgcolor: "#E6EFFF",
+
 };
 
 Plotly.newPlot("graficoPH", initData, layout, { displayModeBar: false });
@@ -68,12 +77,12 @@ function addGraphData(newLabel, newData) {
         x: [xValues],
         y: [yValues],
     };
-    
+
     const tickStart = xValues[0];
     const tickEnd = xValues[xValues.length - 1];
     const tickPositions = [tickStart, tickEnd];
     const tickLabels = [tickStart, tickEnd];
-    
+
     const layoutnewDatas = {
         xaxis: {
             displayModeBar: false,

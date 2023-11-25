@@ -42,9 +42,9 @@ body {
 
 #graficoPH
 {
-    width: 99%;
-    height: 99%;
-    background-color: white;
+    width: 98%;
+    height: 98%;
+    background-color: #E6EFFF;
 }
 
 .graph {
@@ -53,6 +53,7 @@ body {
     background-color: white;
     border: 2px solid #2F3B76;
 
+    background-color: #E6EFFF;
     display: flex;
     justify-content: center;
     align-items: center;
