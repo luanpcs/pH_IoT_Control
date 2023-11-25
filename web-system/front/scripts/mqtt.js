@@ -1,4 +1,4 @@
-import { novoAlerta, novoRegistro } from './requests.js';
+import { novoAlerta, novoRegistro, salvarpH, getPH } from './requests.js';
 const pubTopic = 'TCC_IoTpHControl/webPub';
 const subTopic = 'TCC_IoTpHControl/raspPub';
 const client = mqtt.connect('mqtt://broker.emqx.io:8083/mqtt');
@@ -22,12 +22,13 @@ function mqttRec(payload) {
         switch (payloadJSON.msgType) {
             case 'phValue':
                 {
-                    const valor = payloadJSON.value.toString()
+                    const valor = parseFloat(payloadJSON.value)
                     document.getElementById('mqttData').textContent = parseFloat(valor).toFixed(1);
                     const now = new Date();
-                    const year = now.getFullYear().toString().slice(-2);
                     const timestamp = `${now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()}`;
-                    addGraphData(timestamp, valor)
+                    //salvarpH(valor);
+                    //addGraphData(timestamp, valor)
+                    // console.log(getPH())
                 }
                 break;
 

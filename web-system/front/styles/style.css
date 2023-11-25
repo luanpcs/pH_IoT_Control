@@ -28,7 +28,7 @@ body {
 .grid-block {
     background-color: #2F3B76;
     color: #fff;
-    border-radius:1.5vh;
+    border-radius: 1.5vh;
 }
 
 .block-content {
@@ -40,8 +40,7 @@ body {
     padding: 2px;
 }
 
-#graficoPH
-{
+#graficoPH {
     width: 98%;
     height: 98%;
     background-color: #E6EFFF;
@@ -52,7 +51,6 @@ body {
     grid-row: 1 / span 2;
     background-color: white;
     border: 2px solid #2F3B76;
-
     background-color: #E6EFFF;
     display: flex;
     justify-content: center;
@@ -194,32 +192,32 @@ body {
 }
 
 #regDataTable,
-#reportDataTable,
-#alertDataTable {
+#alertDataTable,
+#pdf {
     overflow-y: auto;
 }
 
 
+
 #regDataTable::-webkit-scrollbar,
-#reportDataTable::-webkit-scrollbar,
+#pdf::-webkit-scrollbar,
 #alertDataTable::-webkit-scrollbar {
     width: 1vh;
 }
 
 #regDataTable::-webkit-scrollbar-thumb,
-#reportDataTable::-webkit-scrollbar-thumb,
+#pdf::-webkit-scrollbar-thumb,
 #alertDataTable::-webkit-scrollbar-thumb {
     background-color: #2F3B76;
 }
 
 #regDataTable::-webkit-scrollbar-track,
-#reportDataTable::-webkit-scrollbar-track,
+#pdf::-webkit-scrollbar-track,
 #alertDataTable::-webkit-scrollbar-track {
     background-color: #f1f1f18e;
 }
 
 #regDataTable,
-#reportDataTable,
 #alertDataTable {
     width: 100%;
     display: flex;
@@ -229,13 +227,9 @@ body {
     height: 100%;
 }
 
-#reportDataTable {
-    margin-top: 0;
-}
-
 .regLine {
     font-size: 2.5vh;
-    color: #2F3B76;
+    color: #5a6ece;
     padding: 2vh;
 }
 
@@ -245,17 +239,20 @@ body {
     padding: 1vh;
 }
 
-.report-popup-content
-{
+.report-popup-content {
     width: 60%;
     height: 80%;
 }
 
-.pre-report-popup-content
-{
+.pre-report-popup-content {
     width: 40%;
     height: 60%;
 }
+
+/* .report-popup-content
+{
+    width: 100vh;
+} */
 
 .aut-popup-content {
     margin-top: 10vh;
@@ -567,7 +564,7 @@ a {
 
 .btn.active,
 .btn1.active,
-.export.active{
+.export.active {
     height: 2vh;
 }
 
@@ -739,16 +736,14 @@ a {
     margin-top: 5vh;
 }
 
-#export-btn
-{
+#export-btn {
     margin-top: 7vh;
     background-color: #2F3A75;
     width: 50vh;
 
 }
 
-.pre-export-form
-{
+.pre-export-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -757,16 +752,12 @@ a {
     margin-top: -10vh;
 }
 
-.export
-{
+.export {
     margin-left: 50vh;
     height: 10vh;
 }
 
-.modo-ativado
-{
+.modo-ativado {
     background-color: #1D2446;
     color: white
 }
-
-

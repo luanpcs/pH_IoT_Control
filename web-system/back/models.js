@@ -1,5 +1,21 @@
 const mongoose = require('mongoose')
 
+const ModeloLogin = new mongoose.Schema
+    (
+        {
+            user: { type: String },
+            password: { type: String },
+        }
+    );
+
+const ModelopHSave = new mongoose.Schema
+    (
+        {
+            value: { type: Number },
+            timestamp: { type: String },
+        }
+    );
+
 const ModeloAlerta = new mongoose.Schema
     (
         {
@@ -16,18 +32,11 @@ const ModeloReg = new mongoose.Schema
         }
     );
 
-const ModeloLogin = new mongoose.Schema
-    (
-        {
-            user: { type: String },
-            password: { type: String },
-        }
-    );
 
+const ModeloLogins = mongoose.model('login', ModeloLogin);
+const ModelopHSaves = mongoose.model('pHSave', ModelopHSave);
 const ModeloAlertas = mongoose.model('alertas', ModeloAlerta);
 const ModeloRegs = mongoose.model('registros', ModeloReg);
-const ModeloLogins = mongoose.model('login', ModeloLogin);
 
-module.exports = { ModeloLogins, ModeloAlertas, ModeloRegs };
-
+module.exports = { ModeloLogins, ModelopHSaves, ModeloAlertas, ModeloRegs };
 

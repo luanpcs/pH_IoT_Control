@@ -1,4 +1,4 @@
-import { novoAlerta, getAlertas, getRegistros } from './requests.js';
+import { getAlertas, getRegistros, getPH } from './requests.js';
 
 export function showReportPopup() {
     setTimeout(async () => {
@@ -9,25 +9,30 @@ export function showReportPopup() {
         setTimeout(() => {
             popup.style.opacity = 1;
         }, 10);
-        
+
         var alertsData = await getAlertas();
         var regsData = await getRegistros();
+        var phData = await getPH()
+
         addDataToAlertTable(alertsData, regsData);
+        gerarGraph(phData)
 
         document.body.style.overflow = "hidden";
 
-        const table = document.getElementById('reportDataTable');
-        const container = table.cloneNode(true);
+        setTimeout(async () => {
+            const table = document.getElementById('pdf');
+            const container = table.cloneNode(true);
 
-        container.style.marginTop = '0mm';
-        html2pdf(container, {
-            margin: 1,
-            filename: 'Relatorio.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 1 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        });
-    }, 3500);
+            container.style.marginTop = '0mm';
+            html2pdf(container, {
+                margin: 1,
+                filename: 'Relatorio.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 1 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            });
+        }, 2000);
+    }, 5000);
 }
 
 export function hideReportPopup() {
@@ -41,9 +46,14 @@ export function hideReportPopup() {
 
     const reportDataBody = document.getElementById("reportDataBody");
 
-    while (reportDataBody.firstChild) {
-        reportDataBody.removeChild(reportDataBody.firstChild);
+    if (reportDataBody != null) {
+
+        while (reportDataBody.firstChild) {
+            reportDataBody.removeChild(reportDataBody.firstChild);
+        }
     }
+
+    Plotly.purge('reportGraph');
 }
 
 export function showPreReportPopup() {
@@ -75,9 +85,6 @@ document.getElementById("report-popup-close").addEventListener("click", hideRepo
 const reportDataBody = document.getElementById("reportDataBody");
 function addDataToAlertTable(alertsData, regsData) {
     const pickedDate = getData()
-
-    var alertCount = 0;
-    var regCount = 0;
 
     const table = document.createElement("table");
     table.classList.add("reportTable");
@@ -125,7 +132,6 @@ function addDataToAlertTable(alertsData, regsData) {
         if (i < tam1) {
             var alertDate = alertsData[i].timestamp.substring(0, 10).trim();
             if (alertDate === pickedDate || pickedDate == "") {
-                alertCount = alertCount + 1
                 alertCell.textContent = alertsData[i].alert;
                 alertTimeCell.textContent = alertsData[i].timestamp;
                 alertSondaCell.textContent = "Sonda 1";
@@ -135,7 +141,6 @@ function addDataToAlertTable(alertsData, regsData) {
         if (i < tam2) {
             var regDate = regsData[i].timestamp.substring(0, 10).trim();
             if (regDate === pickedDate || pickedDate == "") {
-                regCount = regCount + 1
                 regLogCell.textContent = regsData[i].log;
                 regTimeCell.textContent = regsData[i].timestamp;
                 regSondaCell.textContent = "Sonda 1";
@@ -156,51 +161,6 @@ function addDataToAlertTable(alertsData, regsData) {
         table.appendChild(newRow);
 
         newRow.classList.remove("invisible");
-    }
-
-    if (alertCount == 0 || regCount == 0) {
-        const newRow = document.createElement("tr");
-
-        if (alertCount == 0) {
-            const alertCell = document.createElement("td");
-            const alertTimeCell = document.createElement("td");
-            const alertSondaCell = document.createElement("td");
-
-            alertCell.classList.add("reportLine");
-            alertTimeCell.classList.add("reportLine");
-            alertSondaCell.classList.add("reportLine");
-
-            alertCell.textContent = "Sem alertas";
-            alertTimeCell.textContent = "                          ";
-            alertSondaCell.textContent = "                          ";
-
-            newRow.appendChild(alertTimeCell);
-            newRow.appendChild(alertCell);
-            newRow.appendChild(alertSondaCell);
-        }
-
-        const space = document.createElement("th");
-        newRow.appendChild(space);
-
-        if (regCount == 0) {
-            const regLogCell = document.createElement("td");
-            const regTimeCell = document.createElement("td");
-            const regSondaCell = document.createElement("td");
-
-            regLogCell.classList.add("reportLine");
-            regTimeCell.classList.add("reportLine");
-            regSondaCell.classList.add("reportLine");
-
-            regLogCell.textContent = "Sem registros";
-            regTimeCell.textContent = "                          ";
-            regSondaCell.textContent = "                          ";
-
-            newRow.appendChild(regTimeCell);
-            newRow.appendChild(regLogCell);
-            newRow.appendChild(regSondaCell);
-        }
-
-        table.appendChild(newRow);
     }
 
     reportDataBody.appendChild(table);
@@ -234,3 +194,85 @@ btn.addEventListener("click", () => {
         btn.classList.remove("active");
     }, 3000);
 });
+
+function gerarGraph(data) {
+    setTimeout(() => {
+        var yData = []
+        var xData = []
+        var plotedDatas = 0
+
+        const dataSize = data.length
+        const pickedDate = getData()
+
+        for (let i = 0; i < dataSize; i++) {
+
+            var dataDate = data[i].timestamp.substring(0, 10).trim();
+            if (dataDate === pickedDate || pickedDate == "") {
+                yData.push(data[i].value)
+                xData.push(data[i].timestamp)
+                plotedDatas++
+            }
+        }
+
+        const tickStart = xData[0];
+        const tickEnd = xData[dataSize - 1];
+        const tickPositions = [tickStart, tickEnd];
+        const tickLabels = [tickStart, tickEnd];
+
+        var layout = {
+            title: "pH x Tempo",
+            font: {
+                size: 20,
+                family: "Alata",
+                color: "#2F3B76"
+            },
+            yaxis: {
+                title: "pH",
+                titlefont: {
+                    size: 30,
+                    family: "Alata",
+                    color: "#2F3B76"
+                },
+                tickfont: {
+                    size: 15,
+                    family: "Alata",
+                    color: "#2F3B76"
+                },
+                range: [0, 14],
+                autorange: false,
+                dtick: 1,
+            },
+            xaxis: {
+                title: "Tempo",
+                tickvals: tickPositions,
+                ticktext: tickLabels,
+                titlefont: {
+                    size: 30,
+                    family: "Alata",
+                    color: "#2F3B76"
+                },
+                tickfont: {
+                    size: 16,
+                    family: "Alata",
+                    color: "#2F3B76"
+                },
+                showgrid: false,
+            },
+            displayModeBar: false,
+        };
+
+        var dados = [{
+            type: 'scatter',
+            mode: 'lines',
+            fill: 'tozeroy',
+            fillcolor: '#E6EFFF',
+            displayModeBar: false,
+            x: xData,
+            y: yData
+        }];
+
+        if (plotedDatas != 0) {
+            Plotly.newPlot('reportGraph', dados, layout);
+        }
+    }, 500);
+}
