@@ -762,3 +762,150 @@ a {
     background-color: #1D2446;
     color: white
 }
+
+#login-grid {
+    background-color: white;
+    width: 50vh;
+    height: 75vh;
+    margin-left: 110vh;
+    margin-top: 10vh;
+    border-radius: 1vh;
+    border: #2F3A75 0.3vh solid;
+}
+
+#login-grid-text,
+#login-grid-text-criar {
+    font-family: 'Alata';
+    color: #2F3A75;
+    font-size: 4vh;
+    margin-top: 6vh;
+    text-align: center;
+}
+
+#button-login-criar {
+    margin-top: 10vh;
+}
+
+#login-grid-text-criar {
+    margin-left: 5vh;
+}
+
+.container-login {
+
+    position: relative;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 15vh;
+    margin-top: 15vh;
+
+    width: 50vh;
+    height: 75vh;
+    border-radius: 1vh;
+    border: #2F3A75 0.3vh solid;
+    position: fixed;
+}
+
+.login {
+    width: 40vh;
+    height: 40vh;
+    margin: auto;
+    margin-top: 10vh;
+    font-size: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__field {
+    position: relative;
+    margin-bottom: 2vh;
+    padding: 1vh;
+}
+
+.login__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    color: #2F3A75;
+}
+
+.login__input {
+    padding: 10px;
+    padding-left: 30px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #2F3A75;
+    background: none;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+    outline: none;
+    border-bottom-color: #2F3A75;
+}
+
+.login__submit {
+    background: #2F3A75;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 50px;
+    padding: 16px 20px;
+    border-radius: 26px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.login__submit:hover {
+    background: #2F3A75;
+}
+
+.button-login {
+    color: white;
+    background: #2F3A75;
+    border-radius: 1vh;
+    margin-top: 1vh;
+    width: 25vh;
+    height: 5vh;
+    border: none;
+    font-size: 3vh;
+}
+
+.button-login:hover {
+    background: #22294e;
+}
+
+#welcome-image {
+    margin-top: 5vh;
+    margin-right: 60vh;
+    width: 80vh;
+    height: 80vh;
+}
+
+#login-screen {
+    display: flex;
+    justify-content: center;
+}
+
+.criar-link {
+    margin-top: 7vh;
+    color: #2F3A75;
+    text-decoration: underline;
+}
+
+.criar-link:hover {
+    color: #22294e;
+}

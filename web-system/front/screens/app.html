@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../styles/style.css">
+	<script src="../node_modules/mqtt/dist/mqtt.js	"></script>
+	<link href='https://fonts.googleapis.com/css?family=Kdam Thmor Pro' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Alata' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+	<title>pH IoT</title>
+	<link rel="icon" href="assets/logo.jpg" type="icon">
+</head>
+
+</head>
+
+<body>
+
+	<div class="header">Monitoramento e controle IoT de pH</div>
+
+	<div class="grid">
+		<div class="grid-block">
+			<div class="block-content ">
+				<div class="label-titles">pH atual</div>
+				<div div id="mqttData" class="label-ph-atual">-</div>
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Modo</div>
+				<button id="Btn-Man" class="modo-buttons">Manual</button>
+				<button id="Btn-Aut" class="modo-buttons">Automático</button>
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Alertas</div>
+				<img class="img_alertas" id="alertas-popup-button" src="assets/alert.png" />
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Registros</div>
+				<img class="img_registros" id="registros-popup-button" src="assets/img_logregistros.png" />
+			</div>
+		</div>
+
+		<div class="grid-block">
+			<div class="block-content">
+				<div class="label-titles">Gerar relatório</div>
+				<img class="img_report" id="report-popup-button" src="assets/report.png" />
+			</div>
+		</div>
+
+		<div class="grid-block graph">
+			<div id="graficoPH"></div>
+		</div>
+
+	</div>
+
+	<div id="alertas-popup" class="alertas-popup">
+		<div class="alertas-popup-content">
+			<div class="alertas-popup-header">
+				<div>Alertas</div>
+				<div class="close" id="alertas-popup-close">&times;</div>
+			</div>
+			<table id="alertDataTable">
+				<tbody id="alertDataBody"></tbody>
+			</table>
+		</div>
+		<img id="loadingGifAlertas" src="assets/l3.gif" alt="GIF">
+	</div>
+
+	<div id="registros-popup" class="registros-popup">
+		<div class="registros-popup-content">
+			<div class="registros-popup-header">
+				<div>Registros</div>
+				<div class="close" id="registros-popup-close">&times;</div>
+			</div>
+			<table id="regDataTable">
+				<tbody id="regDataBody"></tbody>
+			</table>
+		</div>
+		<img id="loadingGifRegistros" src="assets/l3.gif" alt="GIF">
+	</div>
+
+	<div id="report-popup" class="report-popup">
+		<div class="report-popup-content">
+			<div class="report-popup-header">
+				<div>Relatórios</div>
+				<div class="close" id="report-popup-close">&times;</div>
+			</div>
+			<div id="pdf">
+				<table id="reportDataTable">
+					<tbody id="reportDataBody"></tbody>
+				</table>
+				<div id="reportGraph"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="pre-report-popup" class="pre-report-popup">
+		<div class="pre-report-popup-content">
+			<div class="pre-report-popup-header">
+				<div>Relatórios</div>
+				<div class="close" id="pre-report-popup-close">&times;</div>
+			</div>
+			<div class="pre-export-form">
+				<div id="export-inst">
+					Caso deseje o relatório de uma data específica, selecione abaixo:
+				</div>
+
+				<div class="date-picker-container">
+					<input type="date" id="datepicker">
+				</div>
+				<div id="export-btn" class="export">
+					<div class="soft">
+						<a><span class="btn-text">Exportar</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="aut-popup" class="aut-popup">
+		<div class="aut-popup-content">
+			<div class="aut-popup-header">
+				<div>Modo automático</div>
+				<div class="close" id="aut-popup-close">&times;</div>
+			</div>
+
+			<div class="container">
+				<div class="autConfig">
+					<div>
+						<label for="min" id="labelAutInput">pH mínimo:</label>
+						<input class="inputAutMin" id="min">
+					</div>
+					<div>
+						<label for="min" id="labelAutInput">pH máximo:</label>
+						<input class="inputAutMax" id="max">
+					</div>
+				</div>
+
+				<div id="faixa">
+					<div id="marcacaoInicio">0</div>
+					<div id="marcacaoFim">14</div>
+
+					<div class="seta" id="setaMin">
+						<div class="texto1" id="phMinAut">0.0</div>
+					</div>
+
+					<div class="seta" id="setaMax">
+						<div class="texto2" id="phMaxAut">0.0</div>
+					</div>
+
+					<div class="seta" id="setaAtual">
+						<div class="texto3" id="phAtualAut">0.0</div>
+					</div>
+				</div>
+			</div>
+
+			<button class="btnConfigFaixa" id="btnConfigAutFaixa"></button>
+		</div>
+	</div>
+
+	<div id="man-popup" class="man-popup">
+		<div class="man-popup-content">
+			<div class="man-popup-header">
+				<div>Modo manual</div>
+				<div class="close" id="man-popup-close">&times;</div>
+			</div>
+			<div class="container">
+				<div class="manConfig">
+					<div id="btnConfigManUp" class="btn">
+						<div class="soft">
+							<a><span class="btn-text">Aumentar pH</span></a>
+						</div>
+					</div>
+
+					<div id="btnConfigManDown" class="btn1">
+						<div class="soft">
+							<a><span class="btn-text">Diminuir pH</span></a>
+						</div>
+					</div>
+				</div>
+
+				<div id="faixa">
+					<div id="marcacaoInicio">0</div>
+					<div id="marcacaoFim">14</div>
+
+					<div class="seta" id="setaAtualMan">
+						<div class="texto3" id="phAtualMan">0.0</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script type="module" src="../scripts/app-script.js"></script>
+	<script type="module" src="../scripts/registros-script.js"></script>
+	<script type="module" src="../scripts/mqtt.js"></script>
+	<script type="module" src="../scripts/alertas-script.js"></script>
+	<script type="module" src="../scripts/report-script.js"></script>
+	<script type="module" src="../scripts/aut-script.js"></script>
+	<script type="module" src="../scripts/man-script.js"></script>
+	<script src="../scripts/graph-scripts.js"></script>
+	<script type="module" src="../scripts/requests.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+		crossorigin="anonymous"></script>
+	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-replace-svg="nest"></script>
+
+</body>
+
+</html>
