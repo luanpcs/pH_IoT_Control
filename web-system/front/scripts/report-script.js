@@ -82,8 +82,8 @@ document.getElementById("pre-report-popup-close").addEventListener("click", hide
 document.getElementById("export-btn").addEventListener("click", showReportPopup);
 document.getElementById("report-popup-close").addEventListener("click", hideReportPopup);
 
-const reportDataBody = document.getElementById("reportDataBody");
 function addDataToAlertTable(alertsData, regsData) {
+    const reportDataBody = document.getElementById("reportDataBody");
     const pickedDate = getData()
 
     const table = document.createElement("table");
@@ -131,36 +131,41 @@ function addDataToAlertTable(alertsData, regsData) {
 
         if (i < tam1) {
             var alertDate = alertsData[i].timestamp.substring(0, 10).trim();
-            if (alertDate === pickedDate || pickedDate == "") {
+            if (pickedDate == "" || alertDate === pickedDate) {
                 alertCell.textContent = alertsData[i].alert;
                 alertTimeCell.textContent = alertsData[i].timestamp;
                 alertSondaCell.textContent = "Sonda 1";
+                alertSize++
             }
         }
 
         if (i < tam2) {
             var regDate = regsData[i].timestamp.substring(0, 10).trim();
-            if (regDate === pickedDate || pickedDate == "") {
+            if (pickedDate == "" || regDate === pickedDate) {
                 regLogCell.textContent = regsData[i].log;
                 regTimeCell.textContent = regsData[i].timestamp;
                 regSondaCell.textContent = "Sonda 1";
+                regSize++
             }
         }
 
-        newRow.appendChild(alertTimeCell);
-        newRow.appendChild(alertCell);
-        newRow.appendChild(alertSondaCell);
+        if (alertSize > 0 || regSize > 0) {
 
-        const space = document.createElement("th");
-        newRow.appendChild(space);
+            newRow.appendChild(alertTimeCell);
+            newRow.appendChild(alertCell);
+            newRow.appendChild(alertSondaCell);
 
-        newRow.appendChild(regTimeCell);
-        newRow.appendChild(regLogCell);
-        newRow.appendChild(regSondaCell);
+            const space = document.createElement("td");
+            newRow.appendChild(space);
 
-        table.appendChild(newRow);
+            newRow.appendChild(regTimeCell);
+            newRow.appendChild(regLogCell);
+            newRow.appendChild(regSondaCell);
 
-        newRow.classList.remove("invisible");
+            table.appendChild(newRow);
+
+            newRow.classList.remove("invisible");
+        }
     }
 
     reportDataBody.appendChild(table);

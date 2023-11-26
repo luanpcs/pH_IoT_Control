@@ -218,6 +218,7 @@ body {
 }
 
 #regDataTable,
+#pdf,
 #alertDataTable {
     width: 100%;
     display: flex;
