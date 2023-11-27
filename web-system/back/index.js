@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 
 const URI_MONGO = "mongodb+srv://admin:admin@phcontroler.hcykjja.mongodb.net/?retryWrites=true&w=majority"
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
@@ -16,6 +16,6 @@ mongoose.connect(URI_MONGO)
 
 app.use(router);
 
-app.listen(PORT, () => {
-  console.log(`Servidor em execução na porta ${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor em execução na porta ${port}`);
 });
