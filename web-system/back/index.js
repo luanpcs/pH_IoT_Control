@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 
 const URI_MONGO = "mongodb+srv://admin:admin@phcontroler.hcykjja.mongodb.net/?retryWrites=true&w=majority"
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
