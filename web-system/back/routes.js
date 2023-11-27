@@ -10,11 +10,10 @@ const { ModeloLogins, ModelopHSaves, ModeloAlertas, ModeloRegs } = require('./mo
         try {
             const { user, password } = req.body;
 
-            // Verifique se o usuário já existe no banco de dados
             const existingUser = await User.findOne({ user });
 
             if (existingUser) {
-                return res.status(400).json({ message: 'Usuário já registrado.' });
+                return res.status(400).json({ message: '1' });
             }
 
             // Hash da senha antes de salvar no banco de dados
@@ -23,10 +22,10 @@ const { ModeloLogins, ModelopHSaves, ModeloAlertas, ModeloRegs } = require('./mo
             const newUser = new User({ user, password: hashedPassword });
             await newUser.save();
 
-            res.status(200).json({ message: 'Registro bem-sucedido.' });
+            res.status(200).json({ message: '2' });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Erro ao registrar usuário.' });
+            res.status(500).json({ message: '3' });
         }
     });
 
@@ -37,16 +36,16 @@ const { ModeloLogins, ModelopHSaves, ModeloAlertas, ModeloRegs } = require('./mo
             const userRecord = await User.findOne({ user });
 
             if (!userRecord) {
-                return res.status(401).json({ message: 'Usuário não encontrado.' });
+                return res.status(401).json({ message: '1' });
             }
 
             const passwordMatch = await bcrypt.compare(password, userRecord.password);
 
             if (!passwordMatch) {
-                return res.status(401).json({ message: 'Senha incorreta.' });
+                return res.status(401).json({ message: '2' });
             }
 
-            res.status(200).json({ message: 'Login bem-sucedido.' });
+            res.status(200).json({ message: '3' });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Erro ao fazer login.' });

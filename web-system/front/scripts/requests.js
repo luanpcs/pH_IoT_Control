@@ -1,3 +1,46 @@
+export async function registerUser(user, password) {
+    const url = 'http://localhost:3000/register';
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Log the data
+        return data; // Return the data for further handling if needed
+    })
+    .catch(error => {
+        console.error(error);
+        throw error; // Rethrow the error for further handling if needed
+    });
+}
+
+export async function login(user, password) {
+    const url = 'http://localhost:3000/login';
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user, password }),
+        });
+
+        const data = await response.json();
+
+        return data; // Return the data from the fetch operation
+
+    } catch (error) {
+        console.error(error);
+        throw error; // Rethrow the error for further handling if needed
+    }
+}
+
 export function novoAlerta(alerta) {
     const url = 'http://localhost:3000/alertas';
     const alert = alerta;
@@ -66,36 +109,6 @@ export async function getRegistros() {
     }
 }
 
-export function registerUser(user, password) {
-    const url = 'http://localhost:3000/register';
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user, password }),
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-
-}
-
-export function login(user, password) {
-    const url = 'http://localhost:3000/login';
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user, password }),
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-}
 
 export function salvarpH(ph) {
     const url = 'http://localhost:3000/savePH';

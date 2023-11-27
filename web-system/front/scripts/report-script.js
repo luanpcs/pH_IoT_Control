@@ -85,6 +85,8 @@ document.getElementById("report-popup-close").addEventListener("click", hideRepo
 function addDataToAlertTable(alertsData, regsData) {
     const reportDataBody = document.getElementById("reportDataBody");
     const pickedDate = getData()
+    var alertSize = 0
+    var regSize = 0
 
     const table = document.createElement("table");
     table.classList.add("reportTable");

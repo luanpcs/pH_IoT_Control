@@ -26,8 +26,8 @@ function mqttRec(payload) {
                     document.getElementById('mqttData').textContent = parseFloat(valor).toFixed(1);
                     const now = new Date();
                     const timestamp = `${now.getHours()}:${(now.getMinutes() < 10 ? '0' : '') + now.getMinutes()}:${(now.getSeconds() < 10 ? '0' : '') + now.getSeconds()}`;
-                    //salvarpH(valor);
-                    //addGraphData(timestamp, valor)
+                    salvarpH(valor);
+                    addGraphData(timestamp, valor)
                     // console.log(getPH())
                 }
                 break;
