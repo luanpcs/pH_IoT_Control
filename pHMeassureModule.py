@@ -2,6 +2,10 @@ import RPi.GPIO as GPIO
 import serial
 import time
 
+from globalVars import globalVars
+
+gVars = globalVars()
+
 GPIO.setwarnings(False)
 PinEnableSensor = 3
 
@@ -16,9 +20,12 @@ def readSensorData():
     if sensorData != '':
         currrentPH = float(sensorData)
         if(0.0 >= currrentPH or currrentPH >= 14.0):
-            return 0.0
+            print("pH invalido")
+            return gVars.getLastpH()
         else:
-            return float(sensorData)
+            gVars.setLastpH(currrentPH)
+            return gVars.getLastpH()
     else:
-        return 0.0
+        print("pH invalido")
+        return gVars.getLastpH()
 

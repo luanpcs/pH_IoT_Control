@@ -28,4 +28,5 @@ def manual():
             gVars.setValorFinalTime(gVars.getValorStartTime() + (gVars.getValorPumpsIntervalTrigger() * 1000))
             gVars.setValorAsyncTrigger(True)
             pumpUpOFF()
+            pumpDownOFF()
             # print(gVars.getValorStartTime(), "E", gVars.getValorFinalTime())

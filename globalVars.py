@@ -1,7 +1,7 @@
 import time
 
 class globalVars:
-    modoAtual = None
+    modoAtual = "m"
     manualDir = -1
     valorAutMin = 0
     valorAutMax = 0
@@ -10,6 +10,7 @@ class globalVars:
     asyncTrigger = True
     pumpsIntervalTrigger = 2
     serialBusy = False
+    lastpH = 7
     
     @classmethod
     def setSerialBusy(cls, newState):
@@ -18,6 +19,14 @@ class globalVars:
     @classmethod
     def getSerialBusy(cls):
         return cls.serialBusy
+    
+    @classmethod
+    def setLastpH(cls, newLastpH):
+        cls.lastpH = newLastpH
+    
+    @classmethod
+    def getLastpH(cls):
+        return cls.lastpH
     
     @classmethod
     def setModoAtual(cls, novoModo):

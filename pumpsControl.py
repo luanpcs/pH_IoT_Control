@@ -1,5 +1,7 @@
 import RPi.GPIO as gpio
 import time
+from MQTT_Module import MQTT_Pub
+import json
 
 from globalVars import globalVars
 
@@ -32,6 +34,8 @@ def pumpsInit():
     
     pumpsIdle()
     
+
+    
 def updatePump(pump, newState):
     pump.ChangeDutyCycle(newState)
 
@@ -53,11 +57,15 @@ def pumpDownOFF():
     updatePump(pumpDown, OFF)
 
 def pumpUpTrigger():
+    payload = {"msgType": "reg", "value": "Alcalinizante adicionado"}
+    MQTT_Pub(json.dumps(payload))
     pumpUpON()
     time.sleep(gVars.getValorPumpsIntervalTrigger())
     pumpUpOFF()
     
 def pumpDownTrigger():
+    payload = {"msgType": "reg", "value": "Acidulante adicionado"}
+    MQTT_Pub(json.dumps(payload))
     pumpDownON()
     time.sleep(gVars.getValorPumpsIntervalTrigger())
     pumpDownOFF()

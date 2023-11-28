@@ -2,6 +2,8 @@ from globalVars import globalVars
 from pumpsControl import *
 from pHMeassureModule import readSensorData
 import time
+from MQTT_Module import MQTT_Pub
+import json
 
 gVars = globalVars()
 
@@ -25,11 +27,14 @@ def aut():
                         gVars.setValorAsyncTrigger(False)
                         
                     elif(gVars.getValorAutMin() > currentpHValue):
-                        print("PumpUp trigger")
+                        payload = {"msgType": "alert", "value": f"pH inferior a {gVars.getValorAutMin()}"}
+                        MQTT_Pub(json.dumps(payload))
                         pumpUpTrigger()
                         gVars.setValorAsyncTrigger(False)
                         
                     elif(gVars.getValorAutMax() < currentpHValue):
+                        payload = {"msgType": "alert", "value": f"pH superior a {gVars.getValorAutMax()}"}
+                        MQTT_Pub(json.dumps(payload))
                         print("PumpDown trigger")
                         pumpDownTrigger()
                         gVars.setValorAsyncTrigger(False)
